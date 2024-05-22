@@ -1,17 +1,55 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar dengan Logo</title>
-    <link
-        rel="stylesheet"
-        href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
-    />
-    <style>
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
+  />
+  <script
+    src="https://kit.fontawesome.com/e92cb405cc.js"
+    crossorigin="anonymous"
+  ></script>
+  <title>Document</title>
+  <style>
+    .custom-bg {
+      background-color: #bb0a13;
+      height:70px;
+    }
+    .font{
+        color: white;
+        font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-    
+  <nav class="navbar navbar-expand navbar-dark custom-bg">
+    <a class="navbar-brand" href="#">BURGER KING</a>
+    <div class="navbar-nav w-100">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link font" href="#">Menu</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link font" href="#">Penawaran Khusus</a>
+        </li>
+        <li class="nav-item nav-font">
+          <a class="nav-link font" href="#">Tentang Kami</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item nav-font">
+          <a class="nav-link font" href="#">Daftar/Masuk</a>
+        </li>
+        <li class="nav-item nav-font">
+          <a class="nav-link font" href="#"><i class="fas fa-cart-plus"></i></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
