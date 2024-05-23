@@ -15,7 +15,7 @@
   <style>
     .custom-bg {
       background-color: #bb0a13;
-      height:70px;
+      height:72px;
     }
     .font{
         color: white;
@@ -25,11 +25,19 @@
 </head>
 <body>
   <nav class="navbar navbar-expand navbar-dark custom-bg">
-    <a class="navbar-brand" href="#">BURGER KING</a>
+    <a class="navbar-brand px-3" href="../src/index.php">BURGER KING</a>
     <div class="navbar-nav w-100">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link font" href="#">Menu</a>
+          <div class="btn-group">
+            <button type="button" class="nav-link  btn dropdown-toggle dropdown-toggle-split font" data-bs-toggle="dropdown" aria-expanded="false">Menu</button>
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Makanan</a></li>
+              <li><a class="dropdown-item" href="#">Minuman</a></li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item ">
           <a class="nav-link font" href="#">Penawaran Khusus</a>
@@ -40,10 +48,13 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item nav-font">
-          <a class="nav-link font" href="#">Daftar/Masuk</a>
+          <a class="nav-link font" href="#">Daftar</a>
         </li>
         <li class="nav-item nav-font">
-          <a class="nav-link font" href="#"><i class="fas fa-cart-plus"></i></a>
+          <a class="nav-link font" href="#">Masuk</a>
+        </li>
+        <li class="nav-item nav-font">
+          <a class="nav-link font px-3" href="#"><i class="fas fa-cart-plus"></i></a>
         </li>
       </ul>
     </div>
