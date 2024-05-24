@@ -13,19 +13,22 @@
   ></script>
   <title>Document</title>
   <style>
+    .logo{
+            width: 150px;
+        }
     .custom-bg {
       background-color: #bb0a13;
       height:72px;
     }
     .font{
         color: white;
-        font-size: 20px;
+        font-size: clamp(16px, 2vw, 20px);
     }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand navbar-dark custom-bg">
-    <a class="navbar-brand px-3" href="../src/index.php">BURGER KING</a>
+    <a class="navbar-brand px-3" href="../src/index.php"><img src="../assets-templates/img/logo.png" alt="Logo" class="logo"></a>
     <div class="navbar-nav w-100">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
