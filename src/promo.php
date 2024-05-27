@@ -74,27 +74,27 @@
 
         /* Background images */
         .container:nth-child(1) {
-            background-image: url("./assets-templates/img/promo1.png");
+            background-image: url("/assets-templates/img/promo/prm1.png");
         }
 
         .container:nth-child(2) {
-            background-image: url("./assets-templates/img/promo2.png");
+            background-image: url("./assets-templates/img/promo/promo2.png");
         }
 
         .container:nth-child(3) {
-            background-image: url("./assets-templates/img/promo3.png");
+            background-image: url("./assets-templates/img/promo/promo3.png");
         }
 
         .container:nth-child(4) {
-            background-image: url("./assets-templates/img/promo4.png");
+            background-image: url("./assets-templates/img/promo/promo4.png");
         }
 
         .container:nth-child(5) {
-            background-image: url("./assets-templates/img/promo5.png");
+            background-image: url("./assets-templates/img/promo/promo5.png");
         }
 
         .container:nth-child(6) {
-            background-image: url("./assets-templates/img/promo6.png");
+            background-image: url("./assets-templates/img/promo/promo6.png");
         }
     </style>
 </head>
