@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +49,7 @@
   
 </head>
 <body>
-  <?php include '../assets-templates/header.html'; ?>
+  <?php include '../assets-templates/header.php'; ?>
 
   <div id="carouselExampleIndicators" class="carousel slide img-fluid">
     <div class="carousel-indicators">

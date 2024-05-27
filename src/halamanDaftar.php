@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include '../assets-templates/header.html'; ?>
+<?php include '../assets-templates/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

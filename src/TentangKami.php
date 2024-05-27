@@ -34,7 +34,7 @@
   </style>
 </head>
 <body>
-  <?php include '../assets-templates/header.html'; ?>
+  <?php include '../assets-templates/header.php'; ?>
   
   <div class="content">
     <div class="container mt-5">

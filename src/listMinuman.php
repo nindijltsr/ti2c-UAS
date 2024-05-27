@@ -24,7 +24,7 @@
     </style>
 </head>
 <body style="background-color:#f5f4e6;">
-    <?php include '../assets-templates/header.html'; ?>
+    <?php include '../assets-templates/header.php'; ?>
 
     <div class="container mt-5">
     <h2 class="mb-4" style="color:black; font-size:22px;">Minuman</h2>
