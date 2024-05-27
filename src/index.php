@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="carousel-item">
-        <img src="../assets-templates/img/Slide2.png" class="d-block w-100" alt="...">
+        <img src="../assets-templates/img/Second.png" class="d-block w-100" alt="...">
         <div class="carousel-caption  d-md-block img-fluid">
           <h5 class="capt">Second slide label</h5>
           <p class="capt">Some representative placeholder content for the third slide.</p>
@@ -88,7 +88,7 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  <!-- <?php include '../assets-templates/footer.html'; ?> -->
+  <?php include '../assets-templates/footer.html'; ?>
   <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
