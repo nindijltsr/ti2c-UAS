@@ -3,101 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keranjang Belanja</title>
-    <style>
-        /* Style untuk tampilan keranjang belanja */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .cart {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 20px;
-            max-width: 400px;
-        }
-        .cart h2 {
-            text-align: center;
-        }
-        .cart ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .cart li {
-            margin-bottom: 10px;
-        }
-        .cart .checkout-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .cart .checkout-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <?php
-    session_start();
-
-    // Fungsi untuk menambahkan item ke keranjang belanja
-    function addItemToCart($id, $name, $price) {
-        $_SESSION['cart'][] = array('id' => $id, 'name' => $name, 'price' => $price);
-    }
-
-    // Fungsi untuk menghapus item dari keranjang belanja berdasarkan indeksnya
-    function removeItemFromCart($index) {
-        unset($_SESSION['cart'][$index]);
-    }
-
-    // Fungsi untuk menyelesaikan pembelian
-    function checkout() {
-        unset($_SESSION['cart']);
-        // Di sini Anda bisa menambahkan logika untuk menyimpan pembelian ke database atau melakukan tindakan lain yang diperlukan
-        return true; // Misalnya, pengembalian nilai true menunjukkan bahwa pembelian berhasil
-    }
-
-    // Aksi berdasarkan parameter yang diterima dari halaman HTML
-    if(isset($_POST['action'])) {
-        switch($_POST['action']) {
-            case 'add':
-                addItemToCart($_POST['id'], $_POST['name'], $_POST['price']);
-                break;
-            case 'remove':
-                removeItemFromCart($_POST['index']);
-                break;
-            case 'checkout':
-                $result = checkout();
-                if($result) {
-                    echo "Pembelian berhasil!";
-                } else {
-                    echo "Terjadi kesalahan saat melakukan pembelian.";
-                }
-                break;
-        }
-    }
-    ?>
-
-    <div class="cart">
-        <h2>Keranjang Belanja</h2>
-        <ul id="cart-items">
-            <?php
-            if(isset($_SESSION['cart'])) {
-                foreach($_SESSION['cart'] as $index => $item) {
-                    echo "<li>{$item['name']} - Rp {$item['price']} <form method='post' style='display:inline;'><input type='hidden' name='index' value='$index'><input type='hidden' name='action' value='remove'><button type='submit'>Hapus Item</button></form></li>";
-                }
-            }
-            ?>
-        </ul>
-        <p>Total Item: <span id="total-items"><?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : '0'; ?></span></p>
-        <form method="post">
-            <input type="hidden" name="action" value="checkout">
-            <button class="checkout-btn">Selesaikan Pembelian</button>
-        </form>
+    <div class="container">
+        <div class="order-summary">
+            <h2>Ringkasan Pesanan</h2>
+            <div class="item">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="summary">
+                <div class="subtotal">
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="delivery-fee">
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="total">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="order-action">
+            <input type="text" placeholder="Masukkan Kupon/Kode Promo">
+            <div class="total-amount">Rp. 113,000</div>
+            <button>Pesan</button>
+        </div>
     </div>
 </body>
 </html>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #d40000;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+header .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto;
+    width: 80%;
+    border: 1px solid #ddd;
+}
+
+.order-summary, .order-action {
+    width: 45%;
+}
+
+.order-summary h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.order-summary .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-summary .summary {
+    padding: 10px 0;
+}
+
+.order-summary .summary div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.order-summary .summary .total {
+    font-weight: bold;
+    color: #d40000;
+}
+
+.order-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.order-action input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.order-action .total-amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.order-action button {
+    background-color: #d40000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
