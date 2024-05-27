@@ -13,13 +13,21 @@
     p {
         font-weight: bold;
     }
+    h2 {
+            font-size: 11px;
+            background-color: #EAD196;
+            text-align: center;
+            display: inline-block; /* Menyesuaikan ukuran background dengan isi */
+            padding: 10px 15px; /* Menambah ruang di sekitar teks */
+            border-radius: 15px; /* Membuat border melengkung */
+        }
     </style>
 </head>
 <body style="background-color:#f5f4e6;">
     <?php include '../assets-templates/header.html'; ?>
 
     <div class="container mt-5">
-    <h2 class="mb-4">Minuman</h2>
+    <h2 class="mb-4" style="color:black; font-size:22px;">Minuman</h2>
     <div class="d-flex flex-wrap justify-content-between">
         <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
             <div class="card-body d-flex flex-column align-items-center">

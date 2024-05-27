@@ -27,7 +27,6 @@
     <?php include '../assets-templates/header.html'; ?>
 
     <div class="container mt-5">
-
     <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Ringan</h2>
     <div class="d-flex flex-wrap justify-content-between">
         <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
