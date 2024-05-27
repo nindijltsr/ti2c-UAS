@@ -1,13 +1,14 @@
 <?php
-    $hostname = "localhost";
-    $username = "root";
-    $password = "" ;
-    $database_name = "nama_sb";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "foodget";
 
-    $db = mysqli_connect($hostname, $username, $password, $database_name);
+// Membuat koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    if ($db->connect_error) {
-        echo "Koneksi Database Rusak";
-        die("ERROR!");
-    }
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>

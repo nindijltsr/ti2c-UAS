@@ -1,19 +1,29 @@
 <?php
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include 'koneksiDB.php';
 
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+    $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $hashed_password);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($stmt->execute()) {
-        $success = "Registrasi sukses!";
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['id'];
+            header("Location: index.php");
+            exit();
+        } else {
+            $error = "Password tidak cocok";
+        }
     } else {
-        $error = "Error: " . $stmt->error;
+        $error = "Email tidak ditemukan";
     }
 
     $stmt->close();
@@ -36,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #f5f4e6;
             font-family: Arial, sans-serif;
         }
-        .register-form {
+        .login-form {
             background-color: #fff;
             padding: 30px;
             border-radius: 5px;
@@ -44,22 +54,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 50px auto;
             max-width: 400px;
         }
-        .register-form h1 {
+        .login-form h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             font-size: 24px;
             font-weight: bold;
         }
-        .register-form label {
+        .login-form h6 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .login-form label {
             font-weight: bold;
             margin-bottom: 5px;
         }
-        .register-form input[type="email"],
-        .register-form input[type="password"] {
+        .login-form input[type="email"],
+        .login-form input[type="password"] {
             border: 1px solid #A52A2A;
             margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 10px;
         }
-        .register-form button[type="submit"] {
+        .btn-brown {
             background-color: #A52A2A;
             color: #fff;
             border: none;
@@ -68,33 +85,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .register-form button[type="submit"]:hover {
-            background-color: #8B0000;
+        .btn-brown:hover {
+            background-color: #7d2e0c;
         }
-        .login-link {
+        .register-link {
             text-align: center;
             margin-top: 10px;
         }
-        .login-link a {
-            color: #A52A2A;
-            text-decoration: none;
+        .register-link span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #bb0a13;
         }
-        .login-link a:hover {
-            text-decoration: underline;
+        .register-link .btn {
+            font-size: 14px;
+            color: #fff;
+            background-color: #A52A2A;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        .register-link .btn:hover {
+            background-color: #7d2e0c;
         }
     </style>
 </head>
 
 <body>
-<div class="container">
+    <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3 register-form">
-                <h1>Form Daftar</h1>
-                <?php if (!empty($success)): ?>
-                    <div class="alert alert-success" role="alert">
-                        <?php echo $success; ?>
-                    </div>
-                <?php elseif (!empty($error)): ?>
+            <div class="col-md-6 offset-md-3 login-form">
+                <h1>Selamat Datang!</h1>
+                <h6>Masukkan Email dan Password untuk masuk</h6>
+                <?php if (!empty($error)): ?>
                     <div class="alert alert-danger" role="alert">
                         <?php echo $error; ?>
                     </div>
@@ -109,12 +135,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" name="register" class="btn btn-primary btn-lg">Daftar</button>
+                        <button type="submit" name="login" class="btn btn-brown">Masuk</button>
                     </div>
                 </form>
                 <hr>
-                <div class="login-link">
-                    <p>Kamu sudah memiliki akun? <a href="halamanMasuk.php">Masuk sekarang</a></p>
+                <div class="register-link">
+                    <span>Belum memiliki akun?</span>
+                    <div>
+                        <button onclick="window.location.href='halamanDaftar.php'" class="btn btn-sm btn-brown" style="float: right;">Daftar</button>
+                    </div>
                 </div>
             </div>
         </div>
