@@ -59,30 +59,15 @@
             <h2 class="text-center mb-4">Misi Kami</h2>
             <p class="text-center">Memberikan pengalaman berbelanja makanan yang menyenangkan dan mudah diakses bagi konsumen. Dengan menyediakan berbagai pilihan makanan berkualitas dari berbagai restoran, kami memastikan bahwa pelanggan dapat menemukan apa yang mereka inginkan dengan mudah dan cepat.</p>
           </div>
-        </div>
-    </div>
-  </div>
-
-  <footer class="footer-bg text-white mt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <h3>Kontak Kami</h3>
-          <p>FoodGet E-Commerce</p>
-          <p>Jl. Fantasi No. 123, Kota Impian </p>
-          <p>Email: info@foodget.com</p>
-          <p>Telepon: 123-456-7890</p>
-        </div>
-        <div class="col-lg-6">
-          <h3>Ikuti Kami</h3>
+      </div>
+        <div class="col-md-6">
+          <h1>Ikuti Kami</h1>
           <p>Ikuti kami di media sosial untuk mendapatkan update terbaru:</p>
           <p>Facebook : FoodGet.com</p>
           <p>Instagram : Food_Get.com </p>
-          
-          </ul>
         </div>
-      </div>
     </div>
-  </footer>
+  </div>
+  <?php include '../assets-templates/footer.html'; ?>
 </body>
 </html>
