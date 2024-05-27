@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Summary</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
 </head>
+
+<?php include '../assets-templates/header.php'; ?>
+
 <body>
     <div class="container">
         <div class="order-summary">
@@ -36,6 +39,8 @@
             <button>Pesan</button>
         </div>
     </div>
+    <?php include '../assets-templates/footer.html'; ?>
+    <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 <style>
@@ -147,3 +152,4 @@ header nav ul li a {
     cursor: pointer;
     font-size: 16px;
 }
+
