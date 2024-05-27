@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,30 +17,32 @@
     src="https://kit.fontawesome.com/e92cb405cc.js"
     crossorigin="anonymous"
   ></script>
-  <title>Document</title>
+  <title>FoodGet</title>
   <style>
-    .logo{
-            width: 150px;
-        }
+    .logo {
+      width: 150px;
+    }
     .custom-bg {
       background-color: #bb0a13;
-      height:72px;
+      height: 72px;
     }
-    .font{
-        color: white;
-        font-size: clamp(16px, 2vw, 20px);
+    .font {
+      color: white;
+      font-size: clamp(16px, 2vw, 20px);
     }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand navbar-dark custom-bg">
-    <a class="navbar-brand px-3" href="../src/index.php"><img src="../assets-templates/img/logo.png" alt="Logo" class="logo"></a>
+    <a class="navbar-brand px-3" href="../src/index.php">
+      <img src="../assets-templates/img/logo.png" alt="Logo" class="logo">
+    </a>
     <div class="navbar-nav w-100">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <div class="btn-group">
-            <button type="button" class="nav-link  btn dropdown-toggle dropdown-toggle-split font" data-bs-toggle="dropdown" aria-expanded="false">Menu</button>
-              <span class="visually-hidden">Toggle Dropdown</span>
+            <button type="button" class="nav-link btn dropdown-toggle dropdown-toggle-split font" data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../src/listMakanan.php">Makanan</a></li>
@@ -42,7 +50,7 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link font" href="#">Penawaran Khusus</a>
         </li>
         <li class="nav-item nav-font">
@@ -50,12 +58,23 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item nav-font">
-          <a class="nav-link font" href="halamanDaftar.php">Daftar</a>
-        </li>
-        <li class="nav-item nav-font">
-          <a class="nav-link font" href="halamanMasuk.php">Masuk</a>
-        </li>
+        <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle font" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-regular fa-user"></i> <?= htmlspecialchars($_SESSION['email']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </li>
+        <?php else: ?>
+          <li class="nav-item nav-font">
+            <a class="nav-link font" href="halamanDaftar.php">Daftar</a>
+          </li>
+          <li class="nav-item nav-font">
+            <a class="nav-link font" href="halamanMasuk.php">Masuk</a>
+          </li>
+        <?php endif; ?>
         <li class="nav-item nav-font">
           <a class="nav-link font px-3" href="keranjang.php"><i class="fas fa-cart-plus"></i></a>
         </li>
