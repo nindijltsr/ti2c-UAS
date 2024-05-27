@@ -60,7 +60,9 @@
       <div class="carousel-item active">
         <img src="../assets-templates/img/Slide1.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-blok">
-          <button type="button" class="btn btn-danger">Pesan Sekarang</button>
+          <a href="">
+            <button type="button" class="btn btn-danger">Pesan Sekarang</button>
+          </a>
         </div>
       </div>
       <div class="carousel-item">
@@ -68,7 +70,9 @@
         <div class="carousel-caption  d-md-block img-fluid">
           <h5 class="capt">Second slide label</h5>
           <p class="capt">Some representative placeholder content for the third slide.</p>
-          <button type="button" class="btn btn-danger">Makanan</button>
+          <a href="listMakanan.php">
+            <button type="button" class="btn btn-danger">Makanan</button>
+          </a>
         </div>
       </div>
       <div class="carousel-item ">
@@ -76,7 +80,9 @@
         <div class="carousel-caption capt img-fluid">
           <h5 class="capt">Third slide label</h5>
           <p class="capt">Some representative placeholder content for the third slide.</p>
-          <button type="button" class="btn btn-danger"> Minuman</button>
+          <a href="listMinuman.php">
+            <button type="button" class="btn btn-danger"> Minuman</button>
+          </a>
         </div>
       </div>
     </div>
