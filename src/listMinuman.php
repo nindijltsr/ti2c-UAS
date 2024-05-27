@@ -26,7 +26,7 @@
                 <img src="../assets-templates/img/minuman/esteh.png" class="card-img-top mb-2" alt="...">
                 <h4 class="card-text mb-0">Nasi Goreng</h4>
                 <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="#" class="btn btn-primary align-self-end">Pesan</a>
+                <a href="#" class="btn btn-danger align-self-end">Pesan</a>
             </div>
         </div>
         <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
@@ -34,7 +34,7 @@
                 <img src="../assets-templates/img/minuman/esjeruk.png" class="card-img-top mb-2" alt="...">
                 <h4 class="card-text mb-0">Nasi Goreng</h4>
                 <p class="card-text mt-1">Some quick example.</p>
-                <a href="#" class="btn btn-primary  align-self-end">Pesan</a>
+                <a href="#" class="btn btn-danger  align-self-end">Pesan</a>
             </div>
         </div>
         <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
@@ -42,7 +42,7 @@
                 <img src="../assets-templates/img/minuman/tehtarik.png" class="card-img-top mb-2" alt="...">
                 <h4 class="card-text mb-0">Nasi Goreng</h4>
                 <p class="card-text mt-1">Some quick example.</p>
-                <a href="#" class="btn btn-primary align-self-end">Pesan</a>
+                <a href="#" class="btn btn-danger align-self-end">Pesan</a>
             </div>
         </div>
         <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
@@ -50,7 +50,7 @@
                 <img src="../assets-templates/img/minuman/cappucino.png" class="card-img-top mb-2" alt="...">
                 <h4 class="card-text mb-0">Nasi Goreng</h4>
                 <p class="card-text mt-1">Some quick example.</p>
-                <a href="#" class="btn btn-primary align-self-end">Pesan</a>
+                <a href="#" class="btn btn-danger align-self-end">Pesan</a>
             </div>
         </div>
     </div>
