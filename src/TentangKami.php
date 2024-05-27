@@ -45,10 +45,6 @@
         </div>
       </div>
 
-      <div class="text-center mt-4">
-            <a href="../src/index.php" class="btn btn-danger">Jelajahi FoodGet</a>
-        </div>
-
       <div class="container mt-4"> <div class="row">
           <div class="col-md-6">
             <h2 class="text-center mb-4">Visi Kami</h2>
@@ -60,12 +56,6 @@
             <p class="text-center">Memberikan pengalaman berbelanja makanan yang menyenangkan dan mudah diakses bagi konsumen. Dengan menyediakan berbagai pilihan makanan berkualitas dari berbagai restoran, kami memastikan bahwa pelanggan dapat menemukan apa yang mereka inginkan dengan mudah dan cepat.</p>
           </div>
       </div>
-        <div class="col-md-6">
-          <h1>Ikuti Kami</h1>
-          <p>Ikuti kami di media sosial untuk mendapatkan update terbaru:</p>
-          <p>Facebook : FoodGet.com</p>
-          <p>Instagram : Food_Get.com </p>
-        </div>
     </div>
   </div>
   <?php include '../assets-templates/footer.html'; ?>
