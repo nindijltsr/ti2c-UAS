@@ -15,7 +15,7 @@
     }
     </style>
 </head>
-<body>
+<body style="background-color:#f5f4e6;">
     <?php include '../assets-templates/header.html'; ?>
 
     <div class="container mt-5">
