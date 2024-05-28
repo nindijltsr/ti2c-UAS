@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
     <style>
         body {
             margin: 0;
@@ -13,9 +14,9 @@
             min-height: 100vh;
         }
         footer {
-            background-color: #c4aa5b;
+            background-color: #f8baa1;
             color: #000; /* Font color is black */
-            padding: 20px 10px;
+            padding: 5px 5px;
             text-align: center;
             margin-top: auto;
         }
@@ -25,10 +26,22 @@
             align-items: center;
         }
         .footer-content div {
-            margin: 5px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+        .footer-content a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black; /* Ensure icon color is black */
         }
         .footer-content i {
-            margin-right: 5px;
+            background-color: white; /* Icon background color is white */
+            border-radius: 50%; /* Make the icons circular */
+            padding: 10px; /* Add padding to increase the size of the circle */
+            font-size: 24px; /* Increase icon size */
+            margin-bottom: 5px; /* Space between icon and text */
         }
         .footer-heading {
             font-weight: bold; /* Make "Contact Us" text bold */
@@ -39,7 +52,7 @@
                 justify-content: center;
             }
             .footer-content div {
-                margin: 0 10px;
+                margin: 0 20px;
             }
         }
     </style>
@@ -50,16 +63,26 @@
     <footer>
         <h3 class="footer-heading">Kontak Kami</h3>
         <div class="footer-content">
-            <div>📞 08123459075</div>
-            <div>📩 foodget@gmail.com</div>
-            <div>📍 Jl. Pandean, Serayu, Kota Madiun</div>
-        </div>
-        <div class="footer-content">
-            <div>Ikuti kami di media sosial untuk mendapatkan update terbaru:</div>
-        </div>
-        <div class="footer-content">
-            <div>Facebook : FoodGet.com</div>
-            <div>Instagram : Food_Get.com</div>
+            <div>
+                <i class="fa-solid fa-phone"></i>
+                <span>08123459075</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-envelope"></i>
+                <span>foodget@gmail.com</span>
+            </div>
+            <div>
+                <i class="fa-brands fa-facebook"></i>
+                <span>footget.id</span>
+            </div>
+            <div>
+                <i class="fa-brands fa-instagram"></i>
+                <span>@footget</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Jl. Pandean, Serayu, Kota Madiun</span>
+            </div>
         </div>
     </footer>
 </body>
