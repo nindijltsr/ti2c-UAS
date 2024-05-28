@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
+            $_SESSION['email'] = $row['email']; 
+            $_SESSION['loggedin'] = true; 
             header("Location: index.php");
             exit();
         } else {
@@ -31,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include '../assets-templates/header.html'; ?>
+<?php include '../assets-templates/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
