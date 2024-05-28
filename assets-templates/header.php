@@ -62,7 +62,7 @@ if (session_status() === PHP_SESSION_NONE) {
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link font" href="#">Penawaran Khusus</a>
+          <a class="nav-link font" href="../src/promo.php">Penawaran Khusus</a>
         </li>
         <li class="nav-item nav-font">
           <a class="nav-link font" href="../src/TentangKami.php">Tentang Kami</a>
