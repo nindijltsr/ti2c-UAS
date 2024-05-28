@@ -28,6 +28,17 @@ if (session_status() === PHP_SESSION_NONE) {
       color: white;
       font-size: clamp(16px, 2vw, 20px);
     }
+    .custom-font {
+      font-family: 'Arial', sans-serif;
+      font-size: 18px;
+    }
+    .custom-dropdown .dropdown-toggle {
+      font-size: 16px;
+      color: white;
+    }
+    .custom-dropdown .dropdown-menu {
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -49,7 +60,7 @@ if (session_status() === PHP_SESSION_NONE) {
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link font" href="#">Penawaran Khusus</a>
+          <a class="nav-link font" href="../src/promo.php">Penawaran Khusus</a>
         </li>
         <li class="nav-item nav-font">
           <a class="nav-link font" href="../src/TentangKami.php">Tentang Kami</a>
@@ -57,11 +68,11 @@ if (session_status() === PHP_SESSION_NONE) {
       </ul>
       <ul class="navbar-nav ms-auto">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle font" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item dropdown custom-dropdown">
+            <a class="nav-link dropdown-toggle font cutom-font" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-regular fa-user"></i> <?= htmlspecialchars($_SESSION['email']) ?>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-end custom" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               <li><a class="dropdown-item" href="riwayatPesanan.php">Riwayat Pesanan</a></li>
             </ul>
