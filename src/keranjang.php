@@ -1,3 +1,57 @@
+<?php
+session_start();
+
+include 'koneksiDB.php';
+
+// Add item to cart
+if (isset($_GET['action']) && $_GET['action'] == 'add') {
+    $name = $_GET['name'];
+    $price = $_GET['price'];
+
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    if (!isset($_SESSION['cart'][$name])) {
+        $_SESSION['cart'][$name] = ['name' => $name, 'price' => $price, 'quantity' => 1];
+    } else {
+        $_SESSION['cart'][$name]['quantity'] += 1;
+    }
+}
+
+// Remove item from cart
+if (isset($_GET['action']) && $_GET['action'] == 'remove') {
+    $name = $_GET['name'];
+    unset($_SESSION['cart'][$name]);
+}
+
+// Clear the cart
+if (isset($_GET['action']) && $_GET['action'] == 'clear') {
+    unset($_SESSION['cart']);
+}
+
+// Save order to database
+if (isset($_POST['place_order'])) {
+    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $name = $item['name'];
+            $price = $item['price'];
+            $quantity = $item['quantity'];
+            $sql = "INSERT INTO orders (item_name, price, quantity, order_date) VALUES ('$name', '$price', '$quantity', NOW())";
+            $conn->query($sql);
+        }
+        // Clear the cart after saving
+        unset($_SESSION['cart']);
+    }
+}
+
+
+// Function to format currency
+function formatRupiah($number){
+    return 'Rp ' . number_format($number, 2, ',', '.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,62 +213,46 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="order-summary">
             <h2>Ringkasan Pesanan</h2>
             <div class="item">
-                <span>Nama Makanan</span>
+                <span>Nama Pesanan</span>
                 <span>Jumlah</span>
                 <span>Total</span>
             </div>
-            <div class="summary">
-                <div class="total">
-                    <span>Total</span>
-                    <span>Harga</span>
+            <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
+                <?php $totalPrice = 0; ?>
+                <?php foreach ($_SESSION['cart'] as $item): ?>
+                    <div class="item">
+                        <span><?= $item['name']; ?></span>
+                        <span><?= $item['quantity']; ?></span>
+                        <span><?= formatRupiah($item['price'] * $item['quantity']); ?></span>
+                        <?php $totalPrice += $item['price'] * $item['quantity']; ?>
+                    </div>
+                <?php endforeach; ?>
+                <div class="summary">
+                    <div class="total">
+                        <span>Total</span>
+                        <span><?= formatRupiah($totalPrice); ?></span>
+                    </div>
                 </div>
-            </div>
+            <?php else: ?>
+                <p>Keranjang kosong</p>
+            <?php endif; ?>
         </div>
         <div class="order-action">
             <input type="text" placeholder="Masukkan Kupon/Kode Promo">
-            <div class="total-amount">Potongan Harga </div>
-            <div class="button-group">
-                <button id="place-order">Pesan</button>
-                <button id="cancel-order">Batalkan Pesanan</button>
-            </div>
+            <div class="total-amount">Total: <?= isset($totalPrice) ? formatRupiah($totalPrice) : 'Rp 0'; ?></div>
+            <form method="post" action="keranjang.php">
+                <div class="button-group">
+                    <button type="submit" name="place_order" id="place-order">Pesan Sekarang</button>
+                    <a href="keranjang.php?action=clear" id="cancel-order" class="btn btn-danger">Batal</a>
+                </div>
+            </form>
         </div>
     </div>
     <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Fungsi untuk menampilkan alert dengan animasi
-            function showAlert(message) {
-                var alertDiv = document.createElement('div');
-                alertDiv.classList.add('alert');
-                alertDiv.textContent = message;
-                document.body.appendChild(alertDiv);
-                setTimeout(function() {
-                    alertDiv.classList.add('show');
-                    setTimeout(function() {
-                        alertDiv.classList.remove('show');
-                        setTimeout(function() {
-                            document.body.removeChild(alertDiv);
-                        }, 500); // Ubah angka 500 sesuai dengan durasi animasi
-                    }, 3000); // Tampilkan alert selama 3 detik, sesuaikan jika diperlukan
-                }, 100); // Biarkan sedikit waktu agar elemen dapat ditambahkan sebelum animasi dimulai
-            }
-
-            // Menambahkan event listener untuk tombol "Pesan"
-            document.getElementById("place-order").addEventListener("click", function() {
-                showAlert("Pesanan berhasil dipesan!");
-            });
-
-            // Menambahkan event listener untuk tombol "Batalkan Pesanan"
-            document.getElementById("cancel-order").addEventListener("click", function() {
-                showAlert("Pesanan telah dibatalkan.");
-            });
-        });
-    </script>
-    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
      <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>
