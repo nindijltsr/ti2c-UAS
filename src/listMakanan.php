@@ -1,3 +1,169 @@
+<?php
+session_start();
+
+$makananRingan = [
+    [
+        "name" => "Cireng",
+        "price" => 5000,
+        "quantity" => 3,
+        "image" => "../assets-templates/img/makanan/makananRingan/cireng isi.jpg",
+    ],
+    [
+        "name" => "Dimsum",
+        "price" => 10000,
+        "quantity" => 3,
+        "image" => "../assets-templates/img/makanan/makananRingan/dimsum.jpg",
+    ],
+    [
+        "name" => "Bakwan Sayur",
+        "price" => 2000,
+        "quantity" => 1,
+        "image" => "../assets-templates/img/makanan/makananRingan/heci.jpg",
+    ],
+    [
+        "name" => "Kentang Goreng",
+        "price" => 12000,
+        "quantity" => 1,
+        "image" => "../assets-templates/img/makanan/makananRingan/kentang.jpg",
+    ],
+    [
+        "name" => "Risol Mayo",
+        "price" => 7000,
+        "quantity" => 3,
+        "image" => "../assets-templates/img/makanan/makananRingan/risol mayo.jpg",
+    ],
+    [
+        "name" => "Samose",
+        "price" => 8000,
+        "quantity" => 5,
+        "image" => "../assets-templates/img/makanan/makananRingan/samose❤️.jpg",
+    ],
+    [
+        "name" => "Tahu Isi",
+        "price" => 5000,
+        "quantity" => 3,
+        "image" => "../assets-templates/img/makanan/makananRingan/tahu isi.jpg",
+    ],
+    [
+        "name" => "Tempe Goreng",
+        "price" => 5000,
+        "quantity" => 3,
+        "image" => "../assets-templates/img/makanan/makananRingan/tempe goreng.jpg",
+    ],
+];
+
+$makananBerat = [
+    [
+        "name" => "Nasi Goreng",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananBerat/nasgor.jpg",
+    ],
+    [
+        "name" => "Mie Goreng",
+        "price" => 14000,
+        "image" => "../assets-templates/img/makanan/makananBerat/miegoreng.jpg",
+    ],
+    [
+        "name" => "Bakso",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananBerat/bakso.jpg",
+    ],
+    [
+        "name" => "Soto Kudus",
+        "price" => 15000,
+        "image" => "../assets-templates/img/makanan/makananBerat/soto.jpg",
+    ],
+    [
+        "name" => "Rawon",
+        "price" => 15000,
+        "image" => "../assets-templates/img/makanan/makananBerat/rawon.jpg",
+    ],
+    [
+        "name" => "Ayam Goreng",
+        "price" => 11000,
+        "image" => "../assets-templates/img/makanan/makananBerat/ayamgoreng.jpg",
+    ],
+    [
+        "name" => "Ayam Bakar",
+        "price" => 15000,
+        "image" => "../assets-templates/img/makanan/makananBerat/ayambakar.jpg",
+    ],
+    [
+        "name" => "Ayam Geprek",
+        "price" => 10000,
+        "image" => "../assets-templates/img/makanan/makananBerat/ayamgeprek.jpg",
+    ],
+    [
+        "name" => "Sate Ayam",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananBerat/sateayam.jpg",
+    ],
+    [
+        "name" => "Nila Bakar",
+        "price" => 18000,
+        "image" => "../assets-templates/img/makanan/makananBerat/nilabakar.jpg",
+    ],
+    [
+        "name" => "Beef Steak",
+        "price" => 20000,
+        "image" => "../assets-templates/img/makanan/makananBerat/steak.jpg",
+    ],
+    [
+        "name" => "Lele Goreng",
+        "price" => 8000,
+        "image" => "../assets-templates/img/makanan/makananBerat/lelegoreng.jpg",
+    ],
+];
+
+$makananPenutup = [
+    [
+        "name" => "Brownies",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/brownies.jpg",
+    ],
+    [
+        "name" => "Cheese Cake",
+        "price" => 20000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/cheese cake.jpg",
+    ],
+    [
+        "name" => "Churros",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/churros.jpg",
+    ],
+    [
+        "name" => "Lava Cake",
+        "price" => 20000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/lava cake.jpg",
+    ],
+    [
+        "name" => "Macarons",
+        "price" => 18000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/macarons.jpg",
+    ],
+    [
+        "name" => "Panna Cota",
+        "price" => 18000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/panna cota.jpg",
+    ],
+    [
+        "name" => "Waffle",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/waffle.jpg",
+    ],
+    [
+        "name" => "Mochi Mini",
+        "price" => 12000,
+        "image" => "../assets-templates/img/makanan/makananPenutup/mochi.jpg",
+    ],
+];
+
+// Function to format currency
+function formatRupiah($number){
+    return 'Rp ' . number_format($number, 2, ',', '.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,243 +193,48 @@
     <?php include '../assets-templates/header.php'; ?>
 
     <div class="container mt-5">
-    <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Ringan</h2>
-    <div class="d-flex flex-wrap justify-content-between">
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/cireng isi.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Cireng</h4>
-                <p class="card-text mt-1">Rp 5.000,00 / isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
+        <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Ringan</h2>
+        <div class="d-flex flex-wrap justify-content-between">
+            <?php foreach ($makananRingan as $item): ?>
+                <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
+                        <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
+                        <p class="card-text mt-1"><?= formatRupiah($item['price']); ?> / isi <?= $item['quantity']; ?></p>
+                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/dimsum.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Dimsum</h4>
-                <p class="card-text mt-1">Rp 10.000,00/ isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger  align-self-end">Pesan</a>
-            </div>
+
+        <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Berat</h2>
+        <div class="d-flex flex-wrap justify-content-between">
+            <?php foreach ($makananBerat as $item): ?>
+                <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
+                        <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
+                        <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
+                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/heci.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Bakwan Sayur</h4>
-                <p class="card-text mt-1">Rp 2.000,00 / 1 biji</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/kentang.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Kentang Goreng</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/risol mayo.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Risol Mayo</h4>
-                <p class="card-text mt-1">RP 7.000,00 / isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/Samose❤️.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Samose</h4>
-                <p class="card-text mt-1">Rp 8.000,00 / isi 5</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/tahu isi.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Tahu isi</h4>
-                <p class="card-text mt-1">Rp 5.000,00 / isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananRingan/tempe goreng.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Tempe Goreng</h4>
-                <p class="card-text mt-1">Rp 5.000,00 / isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
+
+        <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Penutup</h2>
+        <div class="d-flex flex-wrap justify-content-between">
+            <?php foreach ($makananPenutup as $item): ?>
+                <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
+                        <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
+                        <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
+                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
-    <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Berat</h2>
-    <div class="d-flex flex-wrap justify-content-between">
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/nasgor.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Nasi Goreng</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/miegoreng.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Mie Goreng</h4>
-                <p class="card-text mt-1">Rp 14.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger  align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/bakso.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Bakso</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/soto.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Soto Kudus</h4>
-                <p class="card-text mt-1">Rp 15.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/rawon.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Rawon</h4>
-                <p class="card-text mt-1">RP 15.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/ayamgoreng.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Ayam Goreng</h4>
-                <p class="card-text mt-1">Rp 11.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/ayambakar.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Ayam Bakar</h4>
-                <p class="card-text mt-1">Rp 15.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/ayamgeprek.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Ayam Geprek</h4>
-                <p class="card-text mt-1">Rp 10.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/sateayam.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Sate Ayam</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/nilabakar.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Nila Bakar</h4>
-                <p class="card-text mt-1">Rp 18.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/steak.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Beef Steak</h4>
-                <p class="card-text mt-1">Rp 20.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananBerat/lelegoreng.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Lele Goreng</h4>
-                <p class="card-text mt-1">Rp 8.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Penutup</h2>
-    <div class="d-flex flex-wrap justify-content-between">
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/brownies.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Brownies</h4>
-                <p class="card-text mt-1">RP 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/cheese cake.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Cheese Cake</h4>
-                <p class="card-text mt-1">Rp 20.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger  align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/churros.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Churros</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/lava cake.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Lava Cake</h4>
-                <p class="card-text mt-1">Rp 20.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/macarons.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Macarons</h4>
-                <p class="card-text mt-1">Rp 18.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/panna cota.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Panna Cota</h4>
-                <p class="card-text mt-1">Rp 18.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/waffle.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Waffle</h4>
-                <p class="card-text mt-1">Rp 12.000,00</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-        <div class="card mb-3" style="width: 15rem; background-color:whitesmoke;">
-            <div class="card-body d-flex flex-column align-items-center">
-                <img src="../assets-templates/img/makanan/makananPenutup/mochi.jpg" class="card-img-top mb-2" alt="...">
-                <h4 class="card-text mb-0">Mochi Mini</h4>
-                <p class="card-text mt-1">Rp 5.000,00 / isi 3</p>
-                <a href="keranjang.php" class="btn btn-danger align-self-end">Pesan</a>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

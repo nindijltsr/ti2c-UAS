@@ -13,10 +13,8 @@ if (session_status() === PHP_SESSION_NONE) {
     rel="stylesheet"
     href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
   />
-  <script
-    src="https://kit.fontawesome.com/e92cb405cc.js"
-    crossorigin="anonymous"
-  ></script>
+  <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
   <title>FoodGet</title>
   <style>
     .logo {
@@ -76,6 +74,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>
             <ul class="dropdown-menu dropdown-menu-end custom" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+              <li><a class="dropdown-item" href="riwayatPesanan.php">Riwayat Pesanan</a></li>
             </ul>
           </li>
         <?php else: ?>
