@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2024 pada 05.01
+-- Waktu pembuatan: 28 Bulan Mei 2024 pada 15.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -49,6 +49,41 @@ CREATE TABLE `keranjang` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `orders`
+--
+
+INSERT INTO `orders` (`id`, `item_name`, `price`, `quantity`, `order_date`) VALUES
+(4, 'Teh Tarik', 7000.00, 1, '2024-05-28 12:57:07'),
+(5, 'Air Mineral', 8000.00, 1, '2024-05-28 13:03:35');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `riwayat_pesanan`
+--
+
+CREATE TABLE `riwayat_pesanan` (
+  `id` int(11) NOT NULL,
+  `keranjang_id` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `total` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -88,6 +123,18 @@ ALTER TABLE `keranjang`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indeks untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `riwayat_pesanan`
+--
+ALTER TABLE `riwayat_pesanan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -108,6 +155,18 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_pesanan`
+--
+ALTER TABLE `riwayat_pesanan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
