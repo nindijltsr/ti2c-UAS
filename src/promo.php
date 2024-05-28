@@ -5,22 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <title>Penawaran Khusus</title>
+    <?php include '../assets-templates/header.php'; ?>
     <style>
-         body {
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
             font-family: Arial, sans-serif;
             background-color: #F5F4E6;
             display: flex;
-            justify-content: center; /* Rata tengah secara horizontal */
-            align-items: center; /* Rata tengah secara vertikal */
-            flex-direction: column; /* Ubah ke kolom vertikal */
+            /* justify-content: center;
+            align-items: center; */
+            flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
+        }
+
+        header, footer {
+            width: 100%;
+            padding: 10px; /* Tambahkan padding untuk header dan footer */
+            background-color: #333; /* Warna latar belakang header dan footer */
+            color: #fff; /* Warna teks header dan footer */
+            text-align: center; /* Teks di tengah */
+        }
+
+        .container-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            position: relative; /* Tambahkan posisi relatif */
+            z-index: 1; /* Tambahkan indeks z */
         }
 
         .container {
             text-align: center;
-            width: 90%; 
+            width: calc(50% - 8px);
             max-width: 400px; 
             margin: 8px;
             padding: 80px; 
@@ -31,6 +53,7 @@
             background-position: center;
             position: relative;
             overflow: hidden;
+            z-index: 2; /* Tambahkan indeks z lebih tinggi */
         }
 
         .container img {
@@ -97,47 +120,85 @@
         .container:nth-child(6) {
             background-image: url("../assets-templates/img/promo/promo6.png");
         }
+
+        /* Hide promo code by default */
+        .promo-code {
+            display: none;
+            color: black;
+            position: absolute;
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+        
     </style>
 </head>
 <body>
-    <div class="container" data-promo="10%">
-        <p>Menu Steak</p>
-        <a href="listMakanan.php" class="btn">Pakai Diskon 10%</a>
+<div class="container-wrapper">
+        <div class="container" data-promo="10%">
+            <p>Menu Steak</p>
+            <a href="#" class="btn" onclick="showPromoCode('ST10')">Kode Promo</a>
+            <div class="promo-code" id="promo-st10">Kode Promo: ST10</div>
+        </div>
+        <div class="container" data-promo="Buy 2 Get 1">
+            <p>Menu Nasi Goreng</p>
+            <a href="#" class="btn" onclick="showPromoCode('NASGOR21')">Kode Promo</a>
+            <div class="promo-code" id="promo-nasgor21">Kode Promo: NASGOR21</div>
+        </div>
+        <div class="container" data-promo="5%">
+            <p>Menu Mojito</p>
+            <a href="#" class="btn" onclick="showPromoCode('MJT5')">Kode Promo</a>
+            <div class="promo-code" id="promo-mjt5">Kode Promo: MJT5</div>
+        </div>
+        <div class="container" data-promo="5%">
+            <p>Semua Varian Jus</p>
+            <a href="#" class="btn" onclick="showPromoCode('JS5')">Kode Promo</a>
+            <div class="promo-code" id="promo-js5">Kode Promo: JS5</div>
+        </div>
+        <div class="container" data-promo="Buy 1 Get 1">
+            <p>Menu Kentang</p>
+            <a href="#" class="btn" onclick="showPromoCode('KTG11')">Kode Promo</a>
+            <div class="promo-code" id="promo-ktg11">Kode Promo: KTG11</div>
+        </div>
+        <div class="container" data-promo="Buy 1 Get 1">
+            <p>Menu Kopi Americano</p>
+            <a href="#" class="btn" onclick="showPromoCode('AMRC11')">Kode Promo</a>
+            <div class="promo-code" id="promo-amrc11">Kode Promo: AMRC11</div>
+        </div>
     </div>
-    <div class="container" data-promo="Buy 2 Get 1">
-        <p>Menu Nasi Goreng</p>
-        <a href="listMakanan.php?promo=nasgor21" class="btn">Pesan</a>
     </div>
-    <div class="container" data-promo="5%">
-        <p>Menu Mojito</p>
-        <a href="listMinuman.php?promo=mjt5" class="btn">Pesan</a>
-    </div>
-    <div class="container" data-promo="5%">
-        <p>Semua Varian Jus</p>
-        <a href="listMinuman.php?promo=js5" class="btn">Pesan</a>
-    </div>
-    <div class="container" data-promo="Buy 1 Get 1">
-        <p>Menu Kentang</p>
-        <a href="listMakanan.php?promo=ktg11" class="btn">Pesan</a>
-    </div>
-    <div class="container" data-promo="Buy 1 Get 1">
-        <p>Menu Kopi Americano</p>
-        <a href="listMinuman.php?promo=amrc11" class="btn">Pesan</a>
-    </div>
+
     <script>
-        document.querySelectorAll('.container .btn').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const promoCode = this.parentElement.getAttribute('data-promo');
-                const isCheckout = this.innerText.includes('Pesan'); // Periksa apakah tombol adalah tombol "Pesan"
-                const url = new URL(this.href);
-                if (isCheckout) {
-                    url.searchParams.set('promo', promoCode); // Tambahkan kode promonya hanya saat checkout
-                }
-                window.location.href = url.toString();
-            });
+  document.addEventListener('DOMContentLoaded', function() {
+    var promoButtons = document.querySelectorAll('.btn');
+
+
+    promoButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); 
+
+            var promoCode = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+
+            showPromoCode(promoCode);
         });
+    });
+});
+
+    function showPromoCode(promoCode) {
+        document.querySelectorAll('.promo-code').forEach(function(promo) {
+            promo.style.display = 'none';
+        });
+
+        var promoId = 'promo-' + promoCode.toLowerCase();
+        var promoElement = document.getElementById(promoId);
+        if (promoElement) {
+            promoElement.style.display = 'block';
+        } else {
+            console.error("Promo code element not found!");
+        }
+    }
     </script>
     <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>
