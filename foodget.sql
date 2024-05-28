@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2024 pada 15.09
+-- Waktu pembuatan: 28 Bulan Mei 2024 pada 15.52
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -100,9 +100,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `password`) VALUES
 (1, 'diva@gmail.com', '$2y$10$2CvgkyX9duesTvKERagsLOxlmd9NY/yNzXEQcS.maxPAUI305o4F.'),
 (3, 'nindinj@gmail.com', '$2y$10$zFjVFKJ.MBpd5mDG.RDWLuGcQSo98UJZrV2gkip8gTTPyYl4jS2/W'),
-(4, 'anindya03@gmail.com', 'anindya'),
-(5, 'indahnugraheni@gmail.com', 'indah'),
-(6, 'nazalasyifa@gmail.com', 'nazala');
+(9, 'anindya03@gmail.com', '$2y$10$.nTmrUru8EKKWYWyzoMc3uc7Z59cGcbYFk48u6aAS4Hi8xZNrECNO'),
+(10, 'nazalasyifa@gmail.com', '$2y$10$aaQ3dqj9mWhCt.pLDl8eG.nuRdE8b4DTsSvPAttzmZ8HwMayYFIP.'),
+(12, 'indahnugraheni@gmail.com', '$2y$10$/.bnxyn.GAc79u3MjLYB8.VHiA7T1TKu.mJ8agdP0k4eVvslEKIV.');
 
 --
 -- Indexes for dumped tables
@@ -173,7 +173,7 @@ ALTER TABLE `riwayat_pesanan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
