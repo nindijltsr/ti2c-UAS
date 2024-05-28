@@ -27,10 +27,20 @@
     .footer-bg {
       background-color: #bb0a13;
     }
-   .col-md-6 {
-  border: 1px solid #ddd;
-  padding: 20px;
-}
+    .highlight-container {
+      background-color: #f8f9fa; 
+      border: 1px solid #bb0a13; 
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+    .equal-height {
+      display: flex;
+    }
   </style>
 </head>
 <body>
@@ -41,28 +51,23 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <h2 class="text-center mb-4">Tentang Kami</h2>
-          <p class="text-center">Foodget adalah platform e-commerce yang dikhususkan untuk perdagangan makanan, dirancang untuk menyediakan kemudahan dan kenyamanan dalam memesan makanan secara online. Dengan teknologi terkini dan antarmuka yang user-friendly, Foodget memfasilitasi transaksi yang cepat, aman, dan efisien bagi semua penggunanya.</p>
+          <p class="text-center">Foodget adalah platform e-commerce yang dibuat untuk perdagangan makanan dan minuman, dirancang untuk menyediakan kemudahan dan kenyamanan bagi konsumen dalam memesan makanan secara online. Dengan teknologi terkini dan antarmuka yang user-friendly, Foodget memfasilitasi transaksi yang cepat, aman, dan efisien bagi semua penggunanya.</p>
         </div>
       </div>
-<<<<<<< HEAD
-      <div class="container mt-4"> 
-        <div class="row">
-=======
-
-      <div class="container mt-4"> <div class="row">
->>>>>>> a4e35b7c9a2e84df47123b2b3eb3e14c3d8c61e3
-          <div class="col-md-6">
+      <div class="row mt-4 equal-height"> 
+        <div class="col-md-6">
+          <div class="highlight-container">
             <h2 class="text-center mb-4">Visi Kami</h2>
-             <p class="text-center">Menjadi platform utama yang menghubungkan konsumen dengan penyedia makanan berkualitas, menciptakan ekosistem digital yang berkelanjutan bagi industri makanan, dan mendukung pertumbuhan usaha makanan lokal di seluruh Indonesia.</p>
+            <p class="text-center">Menjadi platform utama yang menghubungkan konsumen dengan penyedia makanan berkualitas, menciptakan ekosistem digital yang berkelanjutan bagi industri makanan, dan mendukung pertumbuhan usaha makanan lokal di seluruh Indonesia.</p>
           </div>
-          <div class="col-md-6"> 
+        </div>
+        <div class="col-md-6"> 
+          <div class="highlight-container">
             <h2 class="text-center mb-4">Misi Kami</h2>
             <p class="text-center">Memberikan pengalaman berbelanja makanan yang menyenangkan dan mudah diakses bagi konsumen. Dengan menyediakan berbagai pilihan makanan berkualitas dari berbagai restoran, kami memastikan bahwa pelanggan dapat menemukan apa yang mereka inginkan dengan mudah dan cepat.</p>
           </div>
-<<<<<<< HEAD
-=======
+        </div>
       </div>
->>>>>>> a4e35b7c9a2e84df47123b2b3eb3e14c3d8c61e3
     </div>
   </div>
   <?php include '../assets-templates/footer.html'; ?>
