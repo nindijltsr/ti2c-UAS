@@ -108,7 +108,7 @@
         /* Hide promo code by default */
         .promo-code {
             display: none;
-            color: whitesmoke;
+            color: black;
             position: absolute;
             top: 50%; 
             left: 50%;
@@ -149,38 +149,29 @@
             <div class="promo-code" id="promo-amrc11">Kode Promo: AMRC11</div>
         </div>
     </div>
-
-        
-        <!-- Tambahkan container lainnya di sini -->
     </div>
 
     <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Mendapatkan semua tombol "Kode Promo"
     var promoButtons = document.querySelectorAll('.btn');
 
-    // Menambahkan event listener untuk setiap tombol
+
     promoButtons.forEach(function(button) {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah aksi default tombol (yaitu, navigasi ke link)
+            event.preventDefault(); 
 
-            // Mendapatkan kode promo dari id promo
             var promoCode = this.getAttribute('onclick').match(/'([^']+)'/)[1];
 
-            // Menampilkan kode promo yang sesuai
             showPromoCode(promoCode);
         });
     });
 });
 
-    // Function to show promo code
     function showPromoCode(promoCode) {
-        // Hide all promo codes first
         document.querySelectorAll('.promo-code').forEach(function(promo) {
             promo.style.display = 'none';
         });
 
-        // Show the promo code associated with the clicked button
         var promoId = 'promo-' + promoCode.toLowerCase();
         var promoElement = document.getElementById(promoId);
         if (promoElement) {
