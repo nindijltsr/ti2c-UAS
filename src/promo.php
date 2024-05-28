@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <title>Penawaran Khusus</title>
+    <?php include '../assets-templates/header.php'; ?>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,11 +19,21 @@
             padding: 20px;
         }
 
+        header, footer {
+            width: 100%;
+            padding: 10px; /* Tambahkan padding untuk header dan footer */
+            background-color: #333; /* Warna latar belakang header dan footer */
+            color: #fff; /* Warna teks header dan footer */
+            text-align: center; /* Teks di tengah */
+        }
+
         .container-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 16px;
+            position: relative; /* Tambahkan posisi relatif */
+            z-index: 1; /* Tambahkan indeks z */
         }
 
         .container {
@@ -38,6 +49,7 @@
             background-position: center;
             position: relative;
             overflow: hidden;
+            z-index: 2; /* Tambahkan indeks z lebih tinggi */
         }
 
         .container img {
@@ -114,6 +126,7 @@
             left: 50%;
             transform: translate(-50%, -50%); 
         }
+        
     </style>
 </head>
 <body>
@@ -182,5 +195,6 @@
     }
     </script>
     <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include '../assets-templates/footer.html'; ?>
 </body>
 </html>
