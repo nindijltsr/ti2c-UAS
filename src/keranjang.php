@@ -35,7 +35,7 @@
         </div>
         <div class="order-action">
             <input type="text" placeholder="Masukkan Kupon/Kode Promo">
-            <div class="total-amount">Rp. 113,000</div>
+            <div class="total-amount">Rp. </div>
             <button>Pesan</button>
         </div>
     </div>
