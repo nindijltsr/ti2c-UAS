@@ -65,6 +65,6 @@
 >>>>>>> a4e35b7c9a2e84df47123b2b3eb3e14c3d8c61e3
     </div>
   </div>
-  <?php include '../assets-templates/footer.html'; ?>
+  <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>
