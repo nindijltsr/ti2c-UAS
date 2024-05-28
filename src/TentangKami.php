@@ -44,28 +44,16 @@
           <p class="text-center">Foodget adalah platform e-commerce yang dikhususkan untuk perdagangan makanan, dirancang untuk menyediakan kemudahan dan kenyamanan dalam memesan makanan secara online. Dengan teknologi terkini dan antarmuka yang user-friendly, Foodget memfasilitasi transaksi yang cepat, aman, dan efisien bagi semua penggunanya.</p>
         </div>
       </div>
-
-      <div class="text-center mt-4">
-            <a href="../src/index.php" class="btn btn-danger">Jelajahi FoodGet</a>
-        </div>
-
-      <div class="container mt-4"> <div class="row">
+      <div class="container mt-4"> 
+        <div class="row">
           <div class="col-md-6">
             <h2 class="text-center mb-4">Visi Kami</h2>
              <p class="text-center">Menjadi platform utama yang menghubungkan konsumen dengan penyedia makanan berkualitas, menciptakan ekosistem digital yang berkelanjutan bagi industri makanan, dan mendukung pertumbuhan usaha makanan lokal di seluruh Indonesia.</p>
           </div>
-
           <div class="col-md-6"> 
             <h2 class="text-center mb-4">Misi Kami</h2>
             <p class="text-center">Memberikan pengalaman berbelanja makanan yang menyenangkan dan mudah diakses bagi konsumen. Dengan menyediakan berbagai pilihan makanan berkualitas dari berbagai restoran, kami memastikan bahwa pelanggan dapat menemukan apa yang mereka inginkan dengan mudah dan cepat.</p>
           </div>
-      </div>
-        <div class="col-md-6">
-          <h1>Ikuti Kami</h1>
-          <p>Ikuti kami di media sosial untuk mendapatkan update terbaru:</p>
-          <p>Facebook : FoodGet.com</p>
-          <p>Instagram : Food_Get.com </p>
-        </div>
     </div>
   </div>
   <?php include '../assets-templates/footer.html'; ?>
