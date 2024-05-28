@@ -1,3 +1,39 @@
+<?php
+session_start();
+
+// Add item to cart
+if (isset($_GET['action']) && $_GET['action'] == 'add') {
+    $name = $_GET['name'];
+    $price = $_GET['price'];
+
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    if (!isset($_SESSION['cart'][$name])) {
+        $_SESSION['cart'][$name] = ['name' => $name, 'price' => $price, 'quantity' => 1];
+    } else {
+        $_SESSION['cart'][$name]['quantity'] += 1;
+    }
+}
+
+// Remove item from cart
+if (isset($_GET['action']) && $_GET['action'] == 'remove') {
+    $name = $_GET['name'];
+    unset($_SESSION['cart'][$name]);
+}
+
+// Clear the cart
+if (isset($_GET['action']) && $_GET['action'] == 'clear') {
+    unset($_SESSION['cart']);
+}
+
+// Function to format currency
+function formatRupiah($number){
+    return 'Rp ' . number_format($number, 2, ',', '.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,27 +195,40 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="order-summary">
             <h2>Ringkasan Pesanan</h2>
             <div class="item">
-                <span>Nama Makanan</span>
+                <span>Nama Pesanan</span>
                 <span>Jumlah</span>
                 <span>Total</span>
             </div>
-            <div class="summary">
-                <div class="total">
-                    <span>Total</span>
-                    <span>Harga</span>
+            <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
+                <?php $totalPrice = 0; ?>
+                <?php foreach ($_SESSION['cart'] as $item): ?>
+                    <div class="item">
+                        <span><?= $item['name']; ?></span>
+                        <span><?= $item['quantity']; ?></span>
+                        <span><?= formatRupiah($item['price'] * $item['quantity']); ?></span>
+                        <?php $totalPrice += $item['price'] * $item['quantity']; ?>
+                    </div>
+                <?php endforeach; ?>
+                <div class="summary">
+                    <div class="total">
+                        <span>Total</span>
+                        <span><?= formatRupiah($totalPrice); ?></span>
+                    </div>
                 </div>
-            </div>
+            <?php else: ?>
+                <p>Keranjang kosong</p>
+            <?php endif; ?>
         </div>
         <div class="order-action">
             <input type="text" placeholder="Masukkan Kupon/Kode Promo">
-            <div class="total-amount">Potongan Harga </div>
+            <div class="total-amount">Total: <?= isset($totalPrice) ? formatRupiah($totalPrice) : 'Rp 0'; ?></div>
             <div class="button-group">
-                <button id="place-order">Pesan</button>
-                <button id="cancel-order">Batalkan Pesanan</button>
+                <button id="place-order">Pesan Sekarang</button>
+                <a href="keranjang.php?action=clear" id="cancel-order" class="btn btn-danger">Batal</a>
             </div>
         </div>
     </div>
@@ -214,6 +263,6 @@
             });
         });
     </script>
-     <?php include '../assets-templates/footer.html'; ?>
+     <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>
