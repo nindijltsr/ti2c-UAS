@@ -7,16 +7,20 @@
     <title>Penawaran Khusus</title>
     <?php include '../assets-templates/header.php'; ?>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #F5F4E6;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            /* justify-content: center;
+            align-items: center; */
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
 
         header, footer {
