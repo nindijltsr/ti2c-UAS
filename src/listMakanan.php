@@ -200,7 +200,7 @@ function formatRupiah($number){
             <?php endforeach; ?>
         </div>
 
-        <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Berat</h2>
+        <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Utama</h2>
         <div class="d-flex flex-wrap justify-content-between">
             <?php foreach ($makananBerat as $item): ?>
                 <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
