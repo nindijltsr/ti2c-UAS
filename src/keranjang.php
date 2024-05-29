@@ -246,6 +246,7 @@ function formatRupiah($number){
             <div class="total-amount">Total: <?= isset($totalPrice) ? formatRupiah($totalPrice) : 'Rp 0'; ?></div>
             <form method="post" action="keranjang.php">
                 <div class="button-group">
+                    <a href="listMakanan.php?action=clear" id="cancel-order" class="btn btn-danger">Tambah Pesanan</a>
                     <button type="submit" name="place_order" id="place-order">Pesan Sekarang</button>
                     <a href="keranjang.php?action=clear" id="cancel-order" class="btn btn-danger">Batal</a>
                 </div>
