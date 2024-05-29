@@ -5,49 +5,41 @@ $makananRingan = [
     [
         "name" => "Cireng",
         "price" => 5000,
-        "quantity" => 3,
         "image" => "../assets-templates/img/makanan/makananRingan/cireng isi.jpg",
     ],
     [
         "name" => "Dimsum",
         "price" => 10000,
-        "quantity" => 3,
         "image" => "../assets-templates/img/makanan/makananRingan/dimsum.jpg",
     ],
     [
         "name" => "Bakwan Sayur",
         "price" => 2000,
-        "quantity" => 1,
         "image" => "../assets-templates/img/makanan/makananRingan/heci.jpg",
     ],
     [
         "name" => "Kentang Goreng",
         "price" => 12000,
-        "quantity" => 1,
         "image" => "../assets-templates/img/makanan/makananRingan/kentang.jpg",
     ],
     [
         "name" => "Risol Mayo",
         "price" => 7000,
-        "quantity" => 3,
         "image" => "../assets-templates/img/makanan/makananRingan/risol mayo.jpg",
     ],
     [
         "name" => "Samose",
         "price" => 8000,
-        "quantity" => 5,
         "image" => "../assets-templates/img/makanan/makananRingan/samose❤️.jpg",
     ],
     [
         "name" => "Tahu Isi",
         "price" => 5000,
-        "quantity" => 3,
         "image" => "../assets-templates/img/makanan/makananRingan/tahu isi.jpg",
     ],
     [
         "name" => "Tempe Goreng",
         "price" => 5000,
-        "quantity" => 3,
         "image" => "../assets-templates/img/makanan/makananRingan/tempe goreng.jpg",
     ],
 ];
@@ -187,6 +179,7 @@ function formatRupiah($number){
     p {
         font-weight: bold;
     }
+
     </style>
 </head>
 <body style="background-color:#f5f4e6;">
@@ -200,7 +193,7 @@ function formatRupiah($number){
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
                         <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
-                        <p class="card-text mt-1"><?= formatRupiah($item['price']); ?> / isi <?= $item['quantity']; ?></p>
+                        <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
                         <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
                     </div>
                 </div>

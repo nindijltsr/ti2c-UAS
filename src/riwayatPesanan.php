@@ -123,7 +123,7 @@ function formatRupiah($number){
             </tbody>
         </table>
     </div>
-    <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>

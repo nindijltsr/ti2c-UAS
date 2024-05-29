@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
     href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css"
   />
   <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
+  
   <title>FoodGet</title>
   <style>
     .logo {
