@@ -9,7 +9,10 @@ include 'koneksiDB.php';
 
 // Query untuk mengambil semua pesanan dari tabel orders
 $user_id = $_SESSION['user_id']; // Pastikan pengguna telah login
-$sql = "SELECT * FROM orders WHERE user_id = '$user_id' ORDER BY id DESC";
+$sql = "SELECT order_id, item_name, item_price, quantity, order_date 
+        FROM orders 
+        WHERE user_id = '$user_id' 
+        ORDER BY order_id DESC, order_date DESC";
 $result = $conn->query($sql);
 
 
@@ -103,7 +106,7 @@ function formatRupiah($number){
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Order ID</th>
                     <th>Nama Pesanan</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
@@ -112,14 +115,28 @@ function formatRupiah($number){
             </thead>
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php 
+                    $current_order_id = null;
+                    while ($row = $result->fetch_assoc()): 
+                        if ($row['order_id'] !== $current_order_id): 
+                            $current_order_id = $row['order_id'];
+                    ?>
                         <tr>
-                            <td><?= $row['id']; ?></td>
+                            <td><?= $row['order_id']; ?></td>
                             <td><?= $row['item_name']; ?></td>
                             <td><?= formatRupiah($row['item_price']); ?></td>
                             <td><?= $row['quantity']; ?></td>
                             <td><?= $row['order_date']; ?></td>
                         </tr>
+                    <?php else: ?>
+                        <tr>
+                            <td></td>
+                            <td><?= $row['item_name']; ?></td>
+                            <td><?= formatRupiah($row['item_price']); ?></td>
+                            <td><?= $row['quantity']; ?></td>
+                            <td><?= $row['order_date']; ?></td>
+                        </tr>
+                    <?php endif; ?>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>

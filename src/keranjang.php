@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-
 // Add item to cart
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
     $name = $_GET['name'];
@@ -41,27 +40,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear') {
 // Save order to database
 if (isset($_POST['place_order'])) {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        $user_id = $_SESSION['user_id']; // Pastikan pengguna telah login
+        $order_id = uniqid(); // Generate a unique order ID
         foreach ($_SESSION['cart'] as $item) {
             $name = $item['name'];
             $price = $item['price'];
             $quantity = $item['quantity'];
-            $sql = "INSERT INTO orders (user_id, item_name, item_price, quantity, order_date) VALUES ('$user_id', '$name', '$price', '$quantity', NOW())";
-            $conn->query($sql);
+            $sql = "INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, order_date) 
+                    VALUES ('$order_id', '$user_id', '$name', '$price', '$quantity', NOW())";
+            if (!$conn->query($sql)) {
+                die("Error: " . $conn->error);
+            }
         }
         // Clear the cart after saving
         unset($_SESSION['cart']);
+        echo "<script>alert('Order placed successfully');
+        window.location = 'riwayatPesanan.php';</script>";
     }
 }
-
-
 
 // Function to format currency
 function formatRupiah($number){
     return 'Rp ' . number_format($number, 2, ',', '.');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -10,15 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $email, $hashed_password);
 
-    if ($stmt->execute()) {
+    try {
+        $stmt->execute();
         $success = "Registrasi sukses!";
-    } else {
-        $error = "Error: " . $stmt->error;
+    } catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062) { // Duplicate entry error code for MySQL
+            $error = "Email sudah terdaftar. Silakan gunakan email lain.";
+        } else {
+            $error = "Error: " . $stmt->error;
+        }
     }
 
     $stmt->close();
     $conn->close();
 }
+
 ?>
 
 <?php include '../assets-templates/header.php'; ?>
@@ -91,14 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-6 offset-md-3 register-form">
                 <h1>Form Daftar</h1>
                 <?php if (!empty($success)): ?>
-                    <div class="alert alert-success" role="alert">
-                        <?php echo $success; ?>
-                    </div>
-                <?php elseif (!empty($error)): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $error; ?>
-                    </div>
-                <?php endif; ?>
+    <div class="alert alert-success" role="alert">
+        <?php echo $success; ?>
+    </div>
+<?php elseif (!empty($error)): ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $error; ?>
+    </div>
+<?php endif; ?>
+
                 <form action="" method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
