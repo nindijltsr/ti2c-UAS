@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2024 pada 15.52
+-- Waktu pembuatan: 29 Bulan Mei 2024 pada 06.56
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -54,9 +54,10 @@ CREATE TABLE `keranjang` (
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `item_name` varchar(255) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `item_name` varchar(100) DEFAULT NULL,
+  `item_price` decimal(10,2) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,9 +65,22 @@ CREATE TABLE `orders` (
 -- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `item_name`, `price`, `quantity`, `order_date`) VALUES
-(4, 'Teh Tarik', 7000.00, 1, '2024-05-28 12:57:07'),
-(5, 'Air Mineral', 8000.00, 1, '2024-05-28 13:03:35');
+INSERT INTO `orders` (`id`, `user_id`, `item_name`, `item_price`, `quantity`, `order_date`) VALUES
+(1, 1, 'Cireng', 5000.00, 1, '2024-05-29 02:22:41'),
+(2, 2, 'Dimsum', 10000.00, 1, '2024-05-29 02:27:23'),
+(3, 3, 'Tahu Isi', 5000.00, 1, '2024-05-29 02:28:40'),
+(4, 4, 'Es Jeruk', 5000.00, 1, '2024-05-29 02:29:22'),
+(5, 5, 'Es Jeruk', 5000.00, 1, '2024-05-29 02:30:27'),
+(6, 5, 'Soto Kudus', 15000.00, 1, '2024-05-29 02:30:27'),
+(7, 5, 'Mochi Mini', 12000.00, 1, '2024-05-29 02:30:27'),
+(8, 4, 'Bakwan Sayur', 2000.00, 1, '2024-05-29 02:31:10'),
+(9, 4, 'Sprite', 7000.00, 1, '2024-05-29 02:31:10'),
+(10, 1, 'Cireng', 5000.00, 1, '2024-05-29 02:45:58'),
+(11, 1, 'Dimsum', 10000.00, 1, '2024-05-29 02:46:14'),
+(12, 1, 'Cireng', 5000.00, 1, '2024-05-29 02:49:50'),
+(13, 1, 'Es Teh', 4000.00, 1, '2024-05-29 02:50:07'),
+(14, 4, 'Tahu Isi', 5000.00, 1, '2024-05-29 04:54:40'),
+(15, 4, 'Air Mineral', 8000.00, 1, '2024-05-29 04:55:09');
 
 -- --------------------------------------------------------
 
@@ -77,9 +91,18 @@ INSERT INTO `orders` (`id`, `item_name`, `price`, `quantity`, `order_date`) VALU
 CREATE TABLE `riwayat_pesanan` (
   `id` int(11) NOT NULL,
   `keranjang_id` int(11) NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `total` decimal(10,2) NOT NULL
+  `total` decimal(10,0) NOT NULL,
+  `tanggal` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `riwayat_pesanan`
+--
+
+INSERT INTO `riwayat_pesanan` (`id`, `keranjang_id`, `total`, `tanggal`) VALUES
+(5, 0, 10000, '2024-05-29 10:05:36'),
+(6, 0, 2000, '2024-05-29 10:07:14'),
+(7, 0, 2000, '2024-05-29 10:16:09');
 
 -- --------------------------------------------------------
 
@@ -89,7 +112,8 @@ CREATE TABLE `riwayat_pesanan` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -97,12 +121,12 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`) VALUES
-(1, 'diva@gmail.com', '$2y$10$2CvgkyX9duesTvKERagsLOxlmd9NY/yNzXEQcS.maxPAUI305o4F.'),
-(3, 'nindinj@gmail.com', '$2y$10$zFjVFKJ.MBpd5mDG.RDWLuGcQSo98UJZrV2gkip8gTTPyYl4jS2/W'),
-(9, 'anindya03@gmail.com', '$2y$10$.nTmrUru8EKKWYWyzoMc3uc7Z59cGcbYFk48u6aAS4Hi8xZNrECNO'),
-(10, 'nazalasyifa@gmail.com', '$2y$10$aaQ3dqj9mWhCt.pLDl8eG.nuRdE8b4DTsSvPAttzmZ8HwMayYFIP.'),
-(12, 'indahnugraheni@gmail.com', '$2y$10$/.bnxyn.GAc79u3MjLYB8.VHiA7T1TKu.mJ8agdP0k4eVvslEKIV.');
+INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
+(1, '', 'nindinj@gmail.com', '$2y$10$TKE6s.HZFxvOGURsToRkaujF3BF4cZ44WOGrk6iTsykoPIgVnmlA2'),
+(2, '', 'diva@gmail.com', '$2y$10$mviNwl8VmBJxkXi6akGLF.E7a39CEz0YB9SYJBYIEKcSFGd11/cmC'),
+(3, '', 'indah@gmail.com', '$2y$10$c6ojlQbOF4I8ENdk1qxaquwvDykZTeReOtkTn6otYNBhym2qE9hHa'),
+(4, '', 'anin@gmail.com', '$2y$10$2gPtKLOWE5LLFj9y6IbJpevk4K7XJO8wT45Kil58hQHOkCQO9G88W'),
+(5, '', 'naza@gmail.com', '$2y$10$.6.wpZoh8snoGoUZtnc9jOqdIy5PbtzPviwCKtrswFZcKrBR.eOkm');
 
 --
 -- Indexes for dumped tables
@@ -126,7 +150,8 @@ ALTER TABLE `keranjang`
 -- Indeks untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeks untuk tabel `riwayat_pesanan`
@@ -138,8 +163,7 @@ ALTER TABLE `riwayat_pesanan`
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -161,19 +185,19 @@ ALTER TABLE `keranjang`
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pesanan`
 --
 ALTER TABLE `riwayat_pesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -185,6 +209,12 @@ ALTER TABLE `users`
 ALTER TABLE `keranjang`
   ADD CONSTRAINT `keranjang_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `keranjang_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
