@@ -12,24 +12,46 @@ $user_id = $_SESSION['user_id'];
 
 // Add item to cart
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
-    $name = $_GET['name'];
+    $name = urldecode($_GET['name']);  // Decode the URL-encoded name
     $price = $_GET['price'];
+    $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;  // Get the quantity from the form
+    $promo = isset($_GET['promo']) ? $_GET['promo'] : '';  // Get the promo code if any
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
 
-    if (!isset($_SESSION['cart'][$name])) {
-        $_SESSION['cart'][$name] = ['name' => $name, 'price' => $price, 'quantity' => 1];
-    } else {
-        $_SESSION['cart'][$name]['quantity'] += 1;
+    // Check for promo "beli satu gratis satu"
+    if ($promo === 'KTG11' || $promo === 'AMRC11') {
+        $quantity = 2;  // Add two items
+        $price = $price / 2;  // Each item will be half price, so effectively one is free
     }
+
+    if (!isset($_SESSION['cart'][$name])) {
+        $_SESSION['cart'][$name] = ['name' => $name, 'price' => $price, 'quantity' => $quantity];
+    } else {
+        $_SESSION['cart'][$name]['quantity'] += $quantity;
+    }
+
+    header('Location: keranjang.php');
+    exit;
 }
 
 // Remove item from cart
 if (isset($_GET['action']) && $_GET['action'] == 'remove') {
     $name = $_GET['name'];
     unset($_SESSION['cart'][$name]);
+}
+
+// Decrease item quantity in cart
+if (isset($_GET['action']) && $_GET['action'] == 'decrease') {
+    $name = $_GET['name'];
+    if (isset($_SESSION['cart'][$name])) {
+        $_SESSION['cart'][$name]['quantity']--;
+        if ($_SESSION['cart'][$name]['quantity'] <= 0) {
+            unset($_SESSION['cart'][$name]);
+        }
+    }
 }
 
 // Clear the cart
@@ -176,6 +198,7 @@ function formatRupiah($number){
             display: flex;
             justify-content: space-between;
             width: 100%;
+            margin-top: 10px;
         }
 
         .button-group button {
@@ -186,7 +209,7 @@ function formatRupiah($number){
             cursor: pointer;
             font-size: 16px;
             margin-top: 5px;
-            width: 48%;
+            width: calc(33.33% - 5px);
         }
 
         #cancel-order {
@@ -232,12 +255,19 @@ function formatRupiah($number){
                 <span>Jumlah</span>
                 <span>Total</span>
             </div>
-            <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
+            <?php 
+            $totalPrice = 0; // Ensure $totalPrice is always defined
+
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
                 <?php $totalPrice = 0; ?>
                 <?php foreach ($_SESSION['cart'] as $item): ?>
                     <div class="item">
                         <span><?= $item['name']; ?></span>
-                        <span><?= $item['quantity']; ?></span>
+                        <span>
+                            <a href="keranjang.php?action=decrease&name=<?= urlencode($item['name']); ?>">-</a>
+                            <?= $item['quantity']; ?>
+                            <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>">+</a>
+                        </span>
                         <span><?= formatRupiah($item['price'] * $item['quantity']); ?></span>
                         <?php $totalPrice += $item['price'] * $item['quantity']; ?>
                     </div>
@@ -253,17 +283,86 @@ function formatRupiah($number){
             <?php endif; ?>
         </div>
         <div class="order-action">
-            <input type="text" placeholder="Masukkan Kupon/Kode Promo">
-            <div class="total-amount">Total: <?= isset($totalPrice) ? formatRupiah($totalPrice) : 'Rp 0'; ?></div>
+            <input type="text" name="promo_code" placeholder="Masukkan Kupon/Kode Promo">
+            <button id="apply-promo">Terapkan Kode Promo</button>
+            <div class="total-amount" data-total-price="<?= $totalPrice; ?>">Total: <?= formatRupiah($totalPrice); ?></div>
             <form method="post" action="keranjang.php">
                 <div class="button-group">
-                    <a href="listMakanan.php?action=clear" id="cancel-order" class="btn btn-danger">Tambah Pesanan</a>
-                    <button type="submit" name="place_order" id="place-order">Pesan Sekarang</button>
+                    <a href="listMakanan.php" id="cancel-order" class="btn btn-danger">Tambah Pesanan</a>
+                    <button type="submit" name="place_order" id="place-order" class="btn btn-danger">Pesan Sekarang</button>
                     <a href="keranjang.php?action=clear" id="cancel-order" class="btn btn-danger">Batal</a>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var inputPromo = document.querySelector('input[name="promo_code"]');
+        var applyPromoButton = document.querySelector('#apply-promo');
+
+        applyPromoButton.addEventListener('click', function() {
+            var promoCode = inputPromo.value.trim();
+
+            if (promoCode === 'ST10') {
+                applyPromo('ST10', 0.1); // Potongan harga 10%
+            } else if (promoCode === 'MJT5') {
+                applyPromo('MJT5', 0.05); // Potongan harga 5%
+            } else if (promoCode === 'KTG11') {
+                applyPromoItem('KTG11');
+            } else if (promoCode === 'AMRC11') {
+                applyPromoItem('AMRC11');
+            } else {
+                alert('Kode promo tidak valid!');
+            }
+        });
+
+        function applyPromo(promoCode, discountRate) {
+            var totalPriceElement = document.querySelector('.total-amount');
+            var totalPrice = parseFloat(totalPriceElement.dataset.totalPrice);
+            var discount = totalPrice * discountRate;
+            var discountedPrice = totalPrice - discount;
+            totalPriceElement.textContent = 'Total: ' + formatRupiah(discountedPrice);
+        }
+
+        function applyPromoItem(promoCode) {
+            var cartItems = <?php echo json_encode($_SESSION['cart']); ?>;
+            var itemToIncrease = '';
+
+            if (promoCode === 'KTG11') {
+                itemToIncrease = 'Kentang Goreng'; // Nama item yang harus ditambah
+            } else if (promoCode === 'AMRC11') {
+                itemToIncrease = 'Americano'; // Nama item yang harus ditambah
+            }
+
+            if (itemToIncrease && cartItems[itemToIncrease]) {
+                var price = cartItems[itemToIncrease]['price'] / 2;
+                cartItems[itemToIncrease]['quantity'] += 2;
+                cartItems[itemToIncrease]['price'] = price;
+                updateCartOnServer(itemToIncrease, 2, price, promoCode);
+            } else {
+                alert('Item tidak ditemukan di keranjang.');
+            }
+        }
+
+        function updateCartOnServer(itemName, quantity, price, promoCode) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'keranjang.php?action=add&name=' + encodeURIComponent(itemName) + '&quantity=' + quantity + '&price=' + price + '&promo=' + promoCode, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    window.location.reload();
+                } else {
+                    alert('Terjadi kesalahan saat memperbarui keranjang.');
+                }
+            };
+            xhr.send();
+        }
+
+        function formatRupiah(number) {
+            return 'Rp ' + number.toLocaleString('id-ID');
+        }
+    });
+    </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
      <?php include '../assets-templates/footer.php'; ?>
 </body>

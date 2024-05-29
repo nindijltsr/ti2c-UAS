@@ -194,7 +194,13 @@ function formatRupiah($number){
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
                         <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
                         <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
-                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                        <form action="keranjang.php" method="get" class="d-flex flex-column align-items-center">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
+                            <input type="hidden" name="price" value="<?= $item['price']; ?>">
+                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
+                            <button type="submit" class="btn btn-danger">Pesan</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -208,7 +214,13 @@ function formatRupiah($number){
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
                         <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
                         <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
-                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                        <form action="keranjang.php" method="get" class="d-flex flex-column align-items-center">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
+                            <input type="hidden" name="price" value="<?= $item['price']; ?>">
+                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
+                            <button type="submit" class="btn btn-danger">Pesan</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -222,7 +234,13 @@ function formatRupiah($number){
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
                         <h4 class="card-text mb-0"><?= $item['name']; ?></h4>
                         <p class="card-text mt-1"><?= formatRupiah($item['price']); ?>
-                        <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>" class="btn btn-danger align-self-end">Pesan</a>
+                        <form action="keranjang.php" method="get" class="d-flex flex-column align-items-center">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
+                            <input type="hidden" name="price" value="<?= $item['price']; ?>">
+                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
+                            <button type="submit" class="btn btn-danger">Pesan</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>
