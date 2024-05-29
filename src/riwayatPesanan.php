@@ -1,11 +1,17 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    die("Anda harus login terlebih dahulu.");
+}
+
 include 'koneksiDB.php';
 
 // Query untuk mengambil semua pesanan dari tabel orders
-$sql = "SELECT * FROM orders ORDER BY id DESC";
+$user_id = $_SESSION['user_id']; // Pastikan pengguna telah login
+$sql = "SELECT * FROM orders WHERE user_id = '$user_id' ORDER BY id DESC";
 $result = $conn->query($sql);
+
 
 function formatRupiah($number){
     return 'Rp ' . number_format($number, 2, ',', '.');
@@ -110,7 +116,7 @@ function formatRupiah($number){
                         <tr>
                             <td><?= $row['id']; ?></td>
                             <td><?= $row['item_name']; ?></td>
-                            <td><?= formatRupiah($row['price']); ?></td>
+                            <td><?= formatRupiah($row['item_price']); ?></td>
                             <td><?= $row['quantity']; ?></td>
                             <td><?= $row['order_date']; ?></td>
                         </tr>

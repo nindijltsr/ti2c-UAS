@@ -3,6 +3,14 @@ session_start();
 
 include 'koneksiDB.php';
 
+if (!isset($_SESSION['user_id'])) {
+    echo "<script>alert('Anda harus login terlebih dahulu.');
+        window.location = 'halamanDaftar.php';</script>";
+}
+
+$user_id = $_SESSION['user_id'];
+
+
 // Add item to cart
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
     $name = $_GET['name'];
@@ -33,17 +41,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear') {
 // Save order to database
 if (isset($_POST['place_order'])) {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        $user_id = $_SESSION['user_id']; // Pastikan pengguna telah login
         foreach ($_SESSION['cart'] as $item) {
             $name = $item['name'];
             $price = $item['price'];
             $quantity = $item['quantity'];
-            $sql = "INSERT INTO orders (item_name, price, quantity, order_date) VALUES ('$name', '$price', '$quantity', NOW())";
+            $sql = "INSERT INTO orders (user_id, item_name, item_price, quantity, order_date) VALUES ('$user_id', '$name', '$price', '$quantity', NOW())";
             $conn->query($sql);
         }
         // Clear the cart after saving
         unset($_SESSION['cart']);
     }
 }
+
 
 
 // Function to format currency
