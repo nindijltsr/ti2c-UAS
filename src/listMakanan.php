@@ -20,7 +20,7 @@ $makananRingan = [
     [
         "name" => "Kentang Goreng",
         "price" => 12000,
-        "image" => "../assets-templates/img/makanan/makananRingan/kentang.jpg",
+        "image" => "../assets-templates/img/makanan/makananRingan/kentanggoreng.jpg",
     ],
     [
         "name" => "Risol Mayo",
@@ -198,8 +198,10 @@ function formatRupiah($number){
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
                             <input type="hidden" name="price" value="<?= $item['price']; ?>">
-                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
-                            <button type="submit" class="btn btn-danger">Pesan</button>
+                            <div class="d-flex align-items-center mb-2">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input text-center me-2" style="width: 60px;">
+                                <button type="submit" class="btn btn-danger">Pesan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -218,8 +220,10 @@ function formatRupiah($number){
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
                             <input type="hidden" name="price" value="<?= $item['price']; ?>">
-                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
-                            <button type="submit" class="btn btn-danger">Pesan</button>
+                            <div class="d-flex align-items-center mb-2">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input text-center me-2" style="width: 60px;">
+                                <button type="submit" class="btn btn-danger">Pesan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -238,8 +242,10 @@ function formatRupiah($number){
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
                             <input type="hidden" name="price" value="<?= $item['price']; ?>">
-                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
-                            <button type="submit" class="btn btn-danger">Pesan</button>
+                            <div class="d-flex align-items-center mb-2">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input text-center me-2" style="width: 60px;">
+                                <button type="submit" class="btn btn-danger">Pesan</button>
+                            </div>
                         </form>
                     </div>
                 </div>

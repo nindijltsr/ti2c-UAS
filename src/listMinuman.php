@@ -25,7 +25,7 @@ $minuman = [
     [
         "name" => "Americano",
         "price" => 10000,
-        "image" => "../assets-templates/img/minuman/americano.jpg",
+        "image" => "../assets-templates/img/minuman/coffe.jpg",
     ],
     [
         "name" => "cappucino",
@@ -75,7 +75,7 @@ $minuman = [
     [
         "name" => "Jus Tomat",
         "price" => 6000,
-        "image" => "../assets-templates/img/minuman/jus tomat.jpg",
+        "image" => "../assets-templates/img/minuman/justomat.jpg",
     ],
     [
         "name" => "Jus Wortel",
@@ -85,7 +85,7 @@ $minuman = [
     [
         "name" => "Coca Cola",
         "price" => 7000,
-        "image" => "../assets-templates/img/minuman/coca cola.jpg",
+        "image" => "../assets-templates/img/minuman/cocacola.jpg",
     ],
     [
         "name" => "Fanta",
@@ -95,12 +95,12 @@ $minuman = [
     [
         "name" => "Sprite",
         "price" => 7000,
-        "image" => "../assets-templates/img/minuman/sprite.jpg",
+        "image" => "../assets-templates/img/minuman/seprite.jpg",
     ],
     [
         "name" => "Air Mineral",
         "price" => 8000,
-        "image" => "../assets-templates/img/minuman/airmineral.jpg",
+        "image" => "../assets-templates/img/minuman/air mineral.jpg",
     ],
 ];
 
@@ -152,8 +152,10 @@ function formatRupiah($number){
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="name" value="<?= urlencode($item['name']); ?>">
                             <input type="hidden" name="price" value="<?= $item['price']; ?>">
-                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 60px;">
-                            <button type="submit" class="btn btn-danger">Pesan</button>
+                            <div class="d-flex align-items-center mb-2">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input text-center me-2" style="width: 60px;">
+                                <button type="submit" class="btn btn-danger">Pesan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
