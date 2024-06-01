@@ -15,12 +15,17 @@
 
     /* SLIDE */
     .carousel-item {
-      height: 600px;
       width: 100%;
     }
     .carousel-item img {
       margin-top: -190px;
       padding-top: 130px;
+    }
+    .carousel-caption {
+      position: absolute;
+      top: 78%;
+      transform: translateY(-50%);
+      text-align: center;
     }
     .slide {
       width: 100%;
@@ -29,23 +34,6 @@
         color: white;
         font-size: clamp(16px, 2vw, 20px);
     }
-    @media(max-width:768px) {
-      .carousel-item {
-        background-color:#f5f4e6 ;
-      height: 580px;
-      width: 100%;
-    }
-    .carousel-item img {
-      margin-top: -180px;
-      padding-top: 250px;
-    }
-    .slide {
-      width: 100%;
-    }
-    .capt{
-      color: black;
-    }
-  }
   </style>
   
 </head>
@@ -70,8 +58,8 @@
       <div class="carousel-item">
         <img src="../assets-templates/img/Second.png" class="d-block w-100" alt="...">
         <div class="carousel-caption  d-md-block img-fluid">
-          <h5 class="capt">Second slide label</h5>
-          <p class="capt">Some representative placeholder content for the third slide.</p>
+          <h5 class="capt">Berbagai menu makanan tersedia</h5>
+          <p class="capt">Mulai dari Makanan Ringan, Makanan Utama dan Makanan Penutup  </p>
           <a href="listMakanan.php">
             <button type="button" class="btn btn-danger">Makanan</button>
           </a>
@@ -80,8 +68,8 @@
       <div class="carousel-item ">
         <img src="../assets-templates/img/Slide3.png" class="d-block w-100" alt="...">
         <div class="carousel-caption capt img-fluid">
-          <h5 class="capt">Third slide label</h5>
-          <p class="capt">Some representative placeholder content for the third slide.</p>
+          <h5 class="capt">Banyak minuman tersedia</h5>
+          <p class="capt">Tersedia berbagai minuman segar, minuman manis dan soda</p>
           <a href="listMinuman.php">
             <button type="button" class="btn btn-danger"> Minuman</button>
           </a>
@@ -97,6 +85,10 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
+  
+
+
   <?php include '../assets-templates/footer.php'; ?>
   <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

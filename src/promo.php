@@ -59,6 +59,7 @@
         .container img {
             width: 80%;
             max-width: 100px;
+
             border-radius: 50%;
             margin-bottom: 15px;
             position: absolute;
@@ -199,6 +200,5 @@
     }
     </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>

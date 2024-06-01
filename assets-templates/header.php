@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE) {
     }
     .font {
       color: white;
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(16px, 2vw, 18px);
     }
     .custom-font {
       font-family: 'Arial', sans-serif;
