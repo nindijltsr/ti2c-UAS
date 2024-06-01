@@ -15,8 +15,6 @@
             font-family: Arial, sans-serif;
             background-color: #F5F4E6;
             display: flex;
-            /* justify-content: center;
-            align-items: center; */
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
@@ -25,25 +23,26 @@
 
         header, footer {
             width: 100%;
-            padding: 10px; /* Tambahkan padding untuk header dan footer */
-            background-color: #333; /* Warna latar belakang header dan footer */
-            color: #fff; /* Warna teks header dan footer */
-            text-align: center; /* Teks di tengah */
+            padding: 10px; 
+            background-color: #333; 
+            color: #fff; 
+            text-align: center; 
         }
 
         .container-wrapper {
+            margin-top: 40px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 16px;
-            position: relative; /* Tambahkan posisi relatif */
-            z-index: 1; /* Tambahkan indeks z */
+            gap: 15px;
+            position: relative; 
+            z-index: 1; 
         }
 
         .container {
             text-align: center;
-            width: calc(50% - 8px);
-            max-width: 400px; 
+            width: calc(50% - 24px);
+            max-width: 600px; 
             margin: 8px;
             padding: 80px; 
             background-color: #BB0A13;
@@ -53,29 +52,19 @@
             background-position: center;
             position: relative;
             overflow: hidden;
-            z-index: 2; /* Tambahkan indeks z lebih tinggi */
+            z-index: 2; 
+            height: 200px;
         }
 
         .container img {
             width: 80%;
             max-width: 100px;
-
             border-radius: 50%;
             margin-bottom: 15px;
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-        }
-
-        .container p {
-            margin-bottom: 15px;
-            color: whitesmoke;
-            position: absolute;
-            top: 50%; 
-            left: 50%;
-            transform: translate(-50%, -50%); 
-            padding-top: 40px; 
         }
 
         .container .btn {
@@ -97,75 +86,68 @@
             background-color: #7a7e29;
         }
 
-        /* Background images */
         .container:nth-child(1) {
-            background-image: url("../assets-templates/img/promo/promo1.png");
+            background-image: url("../assets-templates/img/promo/diskon25.png");
         }
 
         .container:nth-child(2) {
-            background-image: url("../assets-templates/img/promo/promo2.png");
+            background-image: url("../assets-templates/img/promo/diskon50.png");
         }
 
         .container:nth-child(3) {
-            background-image: url("../assets-templates/img/promo/promo3.png");
+            background-image: url("../assets-templates/img/promo/diskon75.png");
         }
 
         .container:nth-child(4) {
-            background-image: url("../assets-templates/img/promo/promo4.png");
+            background-image: url("../assets-templates/img/promo/diskon90.png");
         }
 
-        .container:nth-child(5) {
-            background-image: url("../assets-templates/img/promo/promo5.png");
-        }
 
-        .container:nth-child(6) {
-            background-image: url("../assets-templates/img/promo/promo6.png");
-        }
-
-        /* Hide promo code by default */
         .promo-code {
+            font-weight: bold;
+            font-size: 20px;
             display: none;
-            color: black;
+            color: white;
             position: absolute;
+            background-color: rgba(0, 0, 0, 0.4);
             top: 50%; 
             left: 50%;
             transform: translate(-50%, -50%); 
         }
-        
+        @media (max-width: 768px) {
+    .container {
+        width: 100%; 
+    }
+}
     </style>
 </head>
 <body>
 <div class="container-wrapper">
-        <div class="container" data-promo="10%">
-            <p>Menu Steak</p>
-            <a href="#" class="btn" onclick="showPromoCode('ST10')">Kode Promo</a>
-            <div class="promo-code" id="promo-st10">Kode Promo: ST10</div>
+        <div class="container" data-promo="25%">
+            <a href="#" class="btn" onclick="showPromoCode('DISC25')">Kode Promo</a>
+            <div class="promo-code" id="promo-disc25">Kode Promo: DISC25</div>
         </div>
-        <div class="container" data-promo="Buy 2 Get 1">
-            <p>Menu Nasi Goreng</p>
-            <a href="#" class="btn" onclick="showPromoCode('NASGOR21')">Kode Promo</a>
-            <div class="promo-code" id="promo-nasgor21">Kode Promo: NASGOR21</div>
+        <div class="container" data-promo="50%">
+            <a href="#" class="btn" onclick="showPromoCode('DISC50')">Kode Promo</a>
+            <div class="promo-code" id="promo-disc50">Kode Promo: DISC50</div>
         </div>
-        <div class="container" data-promo="5%">
-            <p>Menu Mojito</p>
-            <a href="#" class="btn" onclick="showPromoCode('MJT5')">Kode Promo</a>
-            <div class="promo-code" id="promo-mjt5">Kode Promo: MJT5</div>
+        <div class="container" data-promo="75%">
+            <a href="#" class="btn" onclick="showPromoCode('DISC75')">Kode Promo</a>
+            <div class="promo-code" id="promo-disc75">Kode Promo: DISC75</div>
         </div>
-        <div class="container" data-promo="5%">
-            <p>Semua Varian Jus</p>
-            <a href="#" class="btn" onclick="showPromoCode('JS5')">Kode Promo</a>
-            <div class="promo-code" id="promo-js5">Kode Promo: JS5</div>
+        <div class="container" data-promo="90%">
+            <a href="#" class="btn" onclick="showPromoCode('DISC90')">Kode Promo</a>
+            <div class="promo-code" id="promo-disc90">Kode Promo: DISC90</div>
         </div>
-        <div class="container" data-promo="Buy 1 Get 1">
-            <p>Menu Kentang</p>
+        <!-- <div class="container" data-promo="Buy 1 Get 1">
             <a href="#" class="btn" onclick="showPromoCode('KTG11')">Kode Promo</a>
             <div class="promo-code" id="promo-ktg11">Kode Promo: KTG11</div>
         </div>
         <div class="container" data-promo="Buy 1 Get 1">
-            <p>Menu Kopi Americano</p>
             <a href="#" class="btn" onclick="showPromoCode('AMRC11')">Kode Promo</a>
             <div class="promo-code" id="promo-amrc11">Kode Promo: AMRC11</div>
         </div>
+        <div class="container-wrapper"> -->
     </div>
     </div>
 
@@ -195,10 +177,11 @@
         if (promoElement) {
             promoElement.style.display = 'block';
         } else {
-            console.error("Promo code element not found!");
+            console.error("Promo tidak tersedia!");
         }
     }
     </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include '../assets-templates/footer.php'; ?>
 </body>
 </html>

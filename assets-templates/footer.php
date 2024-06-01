@@ -7,32 +7,42 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/e92cb405cc.js" crossorigin="anonymous"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
         .footer {
-      background-color: #f8baa1;
-      color: black;
-      text-align: center;
-      padding: 10px 0; /* Adjust padding to control vertical size */
-      position: relative;
-      bottom: 0;
-      width: 100%;
-    }
-    .footer .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .footer i {
-      margin-right: 3px; /* Add space between icon and text */
-    }
-    .footer span {
-        margin-right: 10px;
-    }
+            position: relative;
+            background-color: #f8baa1;
+            color: black;
+            text-align: center;
+            padding: 10px 0;
+            /* Adjust padding to control vertical size */
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer .containerf {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer i {
+            margin-right: 3px;
+            /* Add space between icon and text */
+        }
+
+        .footer span {
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
     <footer class="footer">
-        <div class="container">
+        <div class="containerf">
             <h3 class="footer-heading" style="font-family:cambria;">Kontak Kami</h3>
             <div>
                 <i class="fas fa-phone" style="margin-left:10px;"></i>

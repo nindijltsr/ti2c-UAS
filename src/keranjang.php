@@ -10,21 +10,15 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Add item to cart
+// + menu ke keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
-    $name = urldecode($_GET['name']);  // Decode the URL-encoded name
+    $name = urldecode($_GET['name']);
     $price = $_GET['price'];
-    $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;  // Get the quantity from the form
-    $promo = isset($_GET['promo']) ? $_GET['promo'] : '';  // Get the promo code if any
+    $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
+    $promo = isset($_GET['promo']) ? $_GET['promo'] : '';
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
-    }
-
-    // Check for promo "beli satu gratis satu"
-    if ($promo === 'KTG11' || $promo === 'AMRC11') {
-        $quantity = 2;  // Add two items
-        $price = $price / 2;  // Each item will be half price, so effectively one is free
     }
 
     if (!isset($_SESSION['cart'][$name])) {
@@ -37,13 +31,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
     exit;
 }
 
-// Remove item from cart
+// Hapus dari keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'remove') {
     $name = $_GET['name'];
     unset($_SESSION['cart'][$name]);
 }
 
-// Decrease item quantity in cart
+// - jumlah menu di kreanjang
 if (isset($_GET['action']) && $_GET['action'] == 'decrease') {
     $name = $_GET['name'];
     if (isset($_SESSION['cart'][$name])) {
@@ -54,15 +48,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'decrease') {
     }
 }
 
-// Clear the cart
+// Batal pesanan
 if (isset($_GET['action']) && $_GET['action'] == 'clear') {
     unset($_SESSION['cart']);
 }
 
-// Save order to database
+// Simpan ke database
 if (isset($_POST['place_order'])) {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        $order_id = uniqid(); // Generate a unique order ID
+        $order_id = uniqid();
         foreach ($_SESSION['cart'] as $item) {
             $name = $item['name'];
             $price = $item['price'];
@@ -73,7 +67,7 @@ if (isset($_POST['place_order'])) {
                 die("Error: " . $conn->error);
             }
         }
-        // Clear the cart after saving
+        // Masukkan riwayat pesanan
         unset($_SESSION['cart']);
         echo "<script>alert('Order placed successfully');
         window.location = 'riwayatPesanan.php';</script>";
@@ -81,12 +75,14 @@ if (isset($_POST['place_order'])) {
 }
 
 // Function to format currency
-function formatRupiah($number){
+function formatRupiah($number)
+{
     return 'Rp ' . number_format($number, 2, ',', '.');
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,42 +92,22 @@ function formatRupiah($number){
     <?php include '../assets-templates/header.php'; ?>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
+            height: 100vh;
 
-        header {
-            background-color: #d40000;
-            color: white;
-            padding: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-
-        header .logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        header nav ul li {
-            margin: 0 10px;
-        }
-
-        header nav ul li a {
-            color: white;
-            text-decoration: none;
         }
 
         .container {
@@ -145,7 +121,8 @@ function formatRupiah($number){
             border: 1px solid #ddd;
         }
 
-        .order-summary, .order-action {
+        .order-summary,
+        .order-action {
             width: 45%;
         }
 
@@ -201,7 +178,11 @@ function formatRupiah($number){
             margin-top: 10px;
         }
 
+        .button-group a.btn,
         .button-group button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: #d40000;
             color: white;
             border: none;
@@ -209,14 +190,22 @@ function formatRupiah($number){
             cursor: pointer;
             font-size: 16px;
             margin-top: 5px;
-            width: calc(33.33% - 5px);
+            width: auto;
+            white-space: nowrap;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .button-group a.btn:last-child,
+        .button-group button:last-child {
+            margin-right: 0;
         }
 
         #cancel-order {
             background-color: #d40000;
         }
 
-        /* CSS untuk alert */
+        /* alert */
         .alert {
             position: fixed;
             top: 50px;
@@ -235,19 +224,11 @@ function formatRupiah($number){
         .alert.show {
             display: block;
         }
-
-        @keyframes slideIn {
-            0% {
-                transform: translate(-50%, -100%);
-            }
-            100% {
-                transform: translate(-50%, 0%);
-            }
-        }
     </style>
 </head>
+
 <body>
-<div class="container">
+    <div class="container">
         <div class="order-summary">
             <h2>Ringkasan Pesanan</h2>
             <div class="item">
@@ -255,12 +236,12 @@ function formatRupiah($number){
                 <span>Jumlah</span>
                 <span>Total</span>
             </div>
-            <?php 
-            $totalPrice = 0; // Ensure $totalPrice is always defined
+            <?php
+            $totalPrice = 0;
 
-            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
                 <?php $totalPrice = 0; ?>
-                <?php foreach ($_SESSION['cart'] as $item): ?>
+                <?php foreach ($_SESSION['cart'] as $item) : ?>
                     <div class="item">
                         <span><?= $item['name']; ?></span>
                         <span>
@@ -278,7 +259,7 @@ function formatRupiah($number){
                         <span><?= formatRupiah($totalPrice); ?></span>
                     </div>
                 </div>
-            <?php else: ?>
+            <?php else : ?>
                 <p>Keranjang kosong</p>
             <?php endif; ?>
         </div>
@@ -297,73 +278,40 @@ function formatRupiah($number){
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var inputPromo = document.querySelector('input[name="promo_code"]');
-        var applyPromoButton = document.querySelector('#apply-promo');
+        document.addEventListener('DOMContentLoaded', function() {
+            var inputPromo = document.querySelector('input[name="promo_code"]');
+            var applyPromoButton = document.querySelector('#apply-promo');
 
-        applyPromoButton.addEventListener('click', function() {
-            var promoCode = inputPromo.value.trim();
+            applyPromoButton.addEventListener('click', function() {
+                var promoCode = inputPromo.value.trim();
 
-            if (promoCode === 'ST10') {
-                applyPromo('ST10', 0.1); // Potongan harga 10%
-            } else if (promoCode === 'MJT5') {
-                applyPromo('MJT5', 0.05); // Potongan harga 5%
-            } else if (promoCode === 'KTG11') {
-                applyPromoItem('KTG11');
-            } else if (promoCode === 'AMRC11') {
-                applyPromoItem('AMRC11');
-            } else {
-                alert('Kode promo tidak valid!');
+                if (promoCode === 'DISC25') {
+                    applyPromo(0.25);
+                } else if (promoCode === 'DISC50') {
+                    applyPromo(0.5);
+                } else if (promoCode === 'DISC75') {
+                    applyPromo(0.75);
+                } else if (promoCode === 'DISC90') {
+                    applyPromo(0.9);
+                } else {
+                    alert('Kode promo tidak valid!');
+                }
+            });
+
+            function applyPromo(discountRate) {
+                var totalPriceElement = document.querySelector('.total-amount');
+                var totalPrice = parseFloat(totalPriceElement.dataset.totalPrice);
+                var discount = totalPrice * discountRate;
+                var discountedPrice = totalPrice - discount;
+                totalPriceElement.textContent = 'Total: ' + formatRupiah(discountedPrice);
+            }
+
+            function formatRupiah(number) {
+                return 'Rp ' + number.toLocaleString('id-ID');
             }
         });
-
-        function applyPromo(promoCode, discountRate) {
-            var totalPriceElement = document.querySelector('.total-amount');
-            var totalPrice = parseFloat(totalPriceElement.dataset.totalPrice);
-            var discount = totalPrice * discountRate;
-            var discountedPrice = totalPrice - discount;
-            totalPriceElement.textContent = 'Total: ' + formatRupiah(discountedPrice);
-        }
-
-        function applyPromoItem(promoCode) {
-            var cartItems = <?php echo json_encode($_SESSION['cart']); ?>;
-            var itemToIncrease = '';
-
-            if (promoCode === 'KTG11') {
-                itemToIncrease = 'Kentang Goreng'; // Nama item yang harus ditambah
-            } else if (promoCode === 'AMRC11') {
-                itemToIncrease = 'Americano'; // Nama item yang harus ditambah
-            }
-
-            if (itemToIncrease && cartItems[itemToIncrease]) {
-                var price = cartItems[itemToIncrease]['price'] / 2;
-                cartItems[itemToIncrease]['quantity'] += 2;
-                cartItems[itemToIncrease]['price'] = price;
-                updateCartOnServer(itemToIncrease, 2, price, promoCode);
-            } else {
-                alert('Item tidak ditemukan di keranjang.');
-            }
-        }
-
-        function updateCartOnServer(itemName, quantity, price, promoCode) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'keranjang.php?action=add&name=' + encodeURIComponent(itemName) + '&quantity=' + quantity + '&price=' + price + '&promo=' + promoCode, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    window.location.reload();
-                } else {
-                    alert('Terjadi kesalahan saat memperbarui keranjang.');
-                }
-            };
-            xhr.send();
-        }
-
-        function formatRupiah(number) {
-            return 'Rp ' + number.toLocaleString('id-ID');
-        }
-    });
     </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-     <?php include '../assets-templates/footer.php'; ?>
 </body>
+    <?php include '../assets-templates/footer.php'; ?>
 </html>
