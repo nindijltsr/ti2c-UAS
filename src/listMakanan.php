@@ -151,44 +151,54 @@ $makananPenutup = [
 ];
 
 // Function to format currency
-function formatRupiah($number){
+function formatRupiah($number)
+{
     return 'Rp ' . number_format($number, 2, ',', '.');
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Get</title>
 
     <style>
-    * {
-        padding: 0;
-        margin: 0;
-    }
-    h2 {
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        h2 {
             font-size: 11px;
             background-color: #EAD196;
             text-align: center;
-            display: inline-block; /* Menyesuaikan ukuran background dengan isi */
-            padding: 10px 15px; /* Menambah ruang di sekitar teks */
-            border-radius: 15px; /* Membuat border melengkung */
+            display: inline-block;
+            /* Menyesuaikan ukuran background dengan isi */
+            padding: 10px 15px;
+            /* Menambah ruang di sekitar teks */
+            border-radius: 15px;
+            /* Membuat border melengkung */
         }
-    p {
-        font-weight: bold;
-    }
 
+        p {
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body style="background-color:#f5f4e6;">
     <?php include '../assets-templates/header.php'; ?>
 
     <div class="container mt-5">
         <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Ringan</h2>
+        <a href="listMinuman.php">
+            <h2 class="mb-4" style="color:black; font-size:10px;"> -> list minuman</h2>
+        </a>
         <div class="d-flex flex-wrap justify-content-between">
-            <?php foreach ($makananRingan as $item): ?>
+            <?php foreach ($makananRingan as $item) : ?>
                 <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
@@ -210,7 +220,7 @@ function formatRupiah($number){
 
         <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Utama</h2>
         <div class="d-flex flex-wrap justify-content-between">
-            <?php foreach ($makananUtama as $item): ?>
+            <?php foreach ($makananUtama as $item) : ?>
                 <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
@@ -232,7 +242,7 @@ function formatRupiah($number){
 
         <h2 class="mb-4" style="color:black; font-size:22px;">Makanan Penutup</h2>
         <div class="d-flex flex-wrap justify-content-between">
-            <?php foreach ($makananPenutup as $item): ?>
+            <?php foreach ($makananPenutup as $item) : ?>
                 <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="<?= $item['image']; ?>" class="card-img-top mb-2" alt="...">
@@ -253,6 +263,7 @@ function formatRupiah($number){
         </div>
     </div>
 
-<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

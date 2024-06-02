@@ -141,6 +141,9 @@ function formatRupiah($number){
 
     <div class="container mt-5">
         <h2 class="mb-4" style="color:black; font-size:22px;">Minuman</h2>
+        <a href="listMakanan.php">
+            <h2 class="mb-4" style="color:black; font-size:10px;"> -> list makanan</h2>
+        </a>
         <div class="d-flex flex-wrap justify-content-between">
             <?php foreach ($minuman as $item): ?>
                 <div class="card mb-4" style="width: 15rem; background-color:whitesmoke;">
