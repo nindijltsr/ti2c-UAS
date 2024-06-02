@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Bulan Mei 2024 pada 08.48
+-- Waktu pembuatan: 02 Jun 2024 pada 15.35
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -59,22 +59,20 @@ CREATE TABLE `orders` (
   `item_name` varchar(100) DEFAULT NULL,
   `item_price` decimal(10,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` enum('pending','lunas') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `order_id`, `item_name`, `item_price`, `quantity`, `order_date`) VALUES
-(41, 1, '6656cdb4a7', 'Dimsum', 10000.00, 1, '2024-05-29 06:39:48'),
-(42, 1, '6656cdb4a7', 'Teh Tarik', 7000.00, 1, '2024-05-29 06:39:48'),
-(43, 1, '6656cdca1a', 'Kentang Goreng', 12000.00, 1, '2024-05-29 06:40:10'),
-(44, 1, '6656cdca1a', 'Es Jeruk', 5000.00, 1, '2024-05-29 06:40:10'),
-(45, 1, '6656cdca1a', 'Mie Goreng', 14000.00, 1, '2024-05-29 06:40:10'),
-(46, 1, '6656cdca1a', 'Fanta', 7000.00, 1, '2024-05-29 06:40:10'),
-(47, 11, '6656cf9a3e', 'Dimsum', 10000.00, 1, '2024-05-29 06:47:54'),
-(48, 11, '6656cf9a3e', 'Thai Tea', 7000.00, 1, '2024-05-29 06:47:54');
+INSERT INTO `orders` (`id`, `user_id`, `order_id`, `item_name`, `item_price`, `quantity`, `order_date`, `status`) VALUES
+(103, 11, '665c357fe1', 'Dimsum', 10000.00, 1, '2024-06-02 09:03:59', 'lunas'),
+(104, 11, '665c357fe1', 'Ayam Bakar', 15000.00, 1, '2024-06-02 09:03:59', 'lunas'),
+(105, 11, '665c357fe1', 'Lava Cake', 20000.00, 1, '2024-06-02 09:03:59', 'lunas'),
+(106, 11, '665c357fe1', 'Es Teh', 4000.00, 3, '2024-06-02 09:03:59', 'lunas'),
+(107, 11, '665c359d1a', 'Teh Tarik', 7000.00, 1, '2024-06-02 09:04:29', 'pending');
 
 -- --------------------------------------------------------
 
@@ -167,7 +165,7 @@ ALTER TABLE `keranjang`
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pesanan`
@@ -179,7 +177,7 @@ ALTER TABLE `riwayat_pesanan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
