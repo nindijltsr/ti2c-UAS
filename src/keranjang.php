@@ -70,11 +70,10 @@ if (isset($_POST['place_order'])) {
         // Masukkan riwayat pesanan
         unset($_SESSION['cart']);
         echo "<script>alert('Order placed successfully');
-        window.location = 'riwayatPesanan.php';</script>";
+        window.location = 'invoice.php';</script>";
     }
 }
 
-// Function to format currency
 function formatRupiah($number)
 {
     return 'Rp ' . number_format($number, 2, ',', '.');
@@ -205,7 +204,6 @@ function formatRupiah($number)
             background-color: #d40000;
         }
 
-        /* alert */
         .alert {
             position: fixed;
             top: 50px;
