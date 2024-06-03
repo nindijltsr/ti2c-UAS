@@ -6,16 +6,54 @@ include 'koneksiDB.php';
 if (!isset($_SESSION['user_id'])) {
     echo "<script>alert('Anda harus login terlebih dahulu.');
         window.location = 'halamanDaftar.php';</script>";
+    exit;
 }
 
 $user_id = $_SESSION['user_id'];
+$promoCode = $_POST['promo_code'] ?? null;
+$discount_rate = 0;
 
-// + menu ke keranjang
+// Tentukan diskon berdasarkan kode promo
+if ($promoCode === 'DISC25') {
+    $discount_rate = 0.25;
+} elseif ($promoCode === 'DISC50') {
+    $discount_rate = 0.50;
+} elseif ($promoCode === 'DISC75') {
+    $discount_rate = 0.75;
+} elseif ($promoCode === 'DISC90') {
+    $discount_rate = 0.90;
+}
+
+
+// Simpan pesanan ke database
+if (isset($_POST['place_order'])) {
+    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        $order_id = uniqid();
+        $stmt = $conn->prepare("INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, discount, order_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+
+        $discount_rate = $_SESSION['discount'] ?? 0; // Ambil diskon dari session
+
+        foreach ($_SESSION['cart'] as $item) {
+            $item_price_with_discount = $item['price'] * (1 - $discount_rate);
+            $stmt->bind_param("sisddi", $order_id, $user_id, $item['name'], $item_price_with_discount, $item['quantity'], $discount_rate);
+            $stmt->execute();
+        }
+
+        $stmt->close();
+        unset($_SESSION['cart']);
+        $_SESSION['discount'] = $discount_rate; // Set the discount rate here
+        echo "<script>alert('Order placed successfully');
+        window.location = 'invoice.php';</script>";
+    }
+}
+
+
+
+// Tambahkan item ke keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
     $name = urldecode($_GET['name']);
     $price = $_GET['price'];
     $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
-    $promo = isset($_GET['promo']) ? $_GET['promo'] : '';
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -31,13 +69,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
     exit;
 }
 
-// Hapus dari keranjang
+// Hapus item dari keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'remove') {
     $name = $_GET['name'];
     unset($_SESSION['cart'][$name]);
+    header('Location: keranjang.php');
+    exit;
 }
 
-// - jumlah menu di kreanjang
+// Kurangi jumlah item di keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'decrease') {
     $name = $_GET['name'];
     if (isset($_SESSION['cart'][$name])) {
@@ -46,39 +86,42 @@ if (isset($_GET['action']) && $_GET['action'] == 'decrease') {
             unset($_SESSION['cart'][$name]);
         }
     }
+    header('Location: keranjang.php');
+    exit;
 }
 
-// Batal pesanan
+// Hapus semua item di keranjang
 if (isset($_GET['action']) && $_GET['action'] == 'clear') {
     unset($_SESSION['cart']);
+    header('Location: keranjang.php');
+    exit;
 }
 
-// Simpan ke database
-if (isset($_POST['place_order'])) {
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        $order_id = uniqid();
-        foreach ($_SESSION['cart'] as $item) {
-            $name = $item['name'];
-            $price = $item['price'];
-            $quantity = $item['quantity'];
-            $sql = "INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, order_date) 
-                    VALUES ('$order_id', '$user_id', '$name', '$price', '$quantity', NOW())";
-            if (!$conn->query($sql)) {
-                die("Error: " . $conn->error);
-            }
-        }
-        // Masukkan riwayat pesanan
-        unset($_SESSION['cart']);
-        echo "<script>alert('Order placed successfully');
-        window.location = 'invoice.php';</script>";
+// Terapkan kode promo
+if (isset($_GET['action']) && $_GET['action'] == 'apply_promo') {
+    $promo_code = $_GET['promo_code'];
+    $stmt = $conn->prepare("SELECT discount_rate FROM promo WHERE kode_promo = ?");
+    $stmt->bind_param("s", $promo_code);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $promo_row = $result->fetch_assoc();
+        $_SESSION['discount'] = $promo_row['discount_rate'];
+    } else {
+        $_SESSION['discount'] = 0;
     }
+    $stmt->close();
+    header('Location: keranjang.php');
+    exit;
 }
 
 function formatRupiah($number)
 {
     return 'Rp ' . number_format($number, 2, ',', '.');
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

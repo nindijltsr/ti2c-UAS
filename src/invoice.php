@@ -70,6 +70,7 @@
         die("Anda harus login terlebih dahulu.");
     }
 
+
     include 'koneksiDB.php';
 
     $user_id = $_SESSION['user_id'];
@@ -93,15 +94,17 @@
         $order_date = $row['order_date'];
 
         // Ambil semua pesanan di satu order ID yang sama
-        $sql = "SELECT item_name, item_price, quantity 
+        $sql = "SELECT item_name, item_price, quantity, discount 
         FROM orders 
         WHERE order_id = '$latest_order_id'";
         $result = $conn->query($sql);
 
+        $total_harga = 0;
+        $total_diskon = 0;
     ?>
         <div class="invoice">
             <div class="invoice-header">
-            <a href="riwayatPesanan.php?status=pending&order_id=<?= $latest_order_id ?>" style="text-decoration: none; color: #000; float: right;">×</a>
+                <a href="riwayatPesanan.php?status=pending&order_id=<?= $latest_order_id ?>" style="text-decoration: none; color: #000; float: right;">×</a>
                 <h2>Invoice Pembayaran</h2>
                 <p>Order ID: <?= $latest_order_id ?></p>
             </div>
@@ -112,26 +115,21 @@
                         <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Total</th>
-                        <th>Diskon</th>
                     </tr>
                     <?php
                     while ($row = $result->fetch_assoc()) {
+                        $discount = $row['discount'];
+                        $discount_amount = $row['item_price'] * $row['quantity'] * $discount;
+                        $total_price = ($row['item_price'] * $row['quantity']) - $discount_amount;
+
+                        $total_diskon += $discount_amount;
+                        $total_harga += $row['item_price'] * $row['quantity'];
                     ?>
                         <tr>
                             <td><?= $row['item_name']; ?></td>
                             <td><?= formatRupiah($row['item_price']); ?></td>
                             <td><?= $row['quantity']; ?></td>
                             <td><?= formatRupiah($row['item_price'] * $row['quantity']); ?></td>
-                            <td>
-                                <?php
-                                $promo = ''; 
-                                if ($promo !== '') {
-                                    echo $promo;
-                                } else {
-                                    echo '-';
-                                }
-                                ?>
-                            </td>
                         </tr>
                     <?php
                     }
@@ -139,14 +137,10 @@
                 </table>
             </div>
             <div class="order-summary">
-                <p>Total Harga: <?php
-                                $total_harga = 0;
-                                $result->data_seek(0); 
-                                while ($row = $result->fetch_assoc()) {
-                                    $total_harga += $row['item_price'] * $row['quantity'];
-                                }
-                                echo formatRupiah($total_harga);
-                                ?></p>
+                <?php if (isset($_SESSION['discount'])) { ?>
+                    <p>Diskon: <?= ($_SESSION['discount'] * 100) ?>%</p>
+                <?php } ?>
+                <p>Total Harga: <?= formatRupiah($total_harga - $total_diskon); ?></p>
                 <p>Tanggal Pesanan: <?= date("d-m-Y H:i:s", strtotime($order_date)) ?></p>
             </div>
             <div class="thank-you">
@@ -155,7 +149,6 @@
             <div class="bayar-button" style="text-align: center; margin-top: 20px;">
                 <a href="bayarPesanan.php?order_id=<?= $latest_order_id ?>" style="text-decoration: none; color: #000; background-color: #4CAF50; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Bayar</a>
             </div>
-        </div>
         </div>
     <?php
     } else {
