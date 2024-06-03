@@ -70,17 +70,16 @@
         die("Anda harus login terlebih dahulu.");
     }
 
-
     include 'koneksiDB.php';
 
     $user_id = $_SESSION['user_id'];
 
     // Ambil informasi pesanan terbaru dari riwayat pesanan
-    $sql = "SELECT order_id, item_name, item_price, quantity, order_date 
-    FROM orders 
-    WHERE user_id = '$user_id' 
-    ORDER BY order_id DESC, order_date DESC 
-    LIMIT 1";
+    $sql = "SELECT order_id, item_name, item_price, quantity, discount, promo_code, order_date 
+            FROM orders 
+            WHERE user_id = '$user_id' 
+            ORDER BY order_id DESC, order_date DESC 
+            LIMIT 1";
     $result = $conn->query($sql);
 
     function formatRupiah($number)
@@ -92,15 +91,52 @@
         $row = $result->fetch_assoc();
         $latest_order_id = $row['order_id'];
         $order_date = $row['order_date'];
+        $promo_code = $row['promo_code']; // Ambil promo code
 
         // Ambil semua pesanan di satu order ID yang sama
         $sql = "SELECT item_name, item_price, quantity, discount 
-        FROM orders 
-        WHERE order_id = '$latest_order_id'";
+                FROM orders 
+                WHERE order_id = '$latest_order_id'";
         $result = $conn->query($sql);
 
         $total_harga = 0;
         $total_diskon = 0;
+
+        // Perhitungan total harga dan diskon
+        while ($row = $result->fetch_assoc()) {
+            $discount = $row['discount'];
+            $discount_amount = $row['item_price'] * $row['quantity'] * $discount;
+            $total_price = ($row['item_price'] * $row['quantity']) - $discount_amount;
+
+            $total_diskon += $discount_amount;
+            $total_harga += $row['item_price'] * $row['quantity'];
+        }
+
+        // Penerapan diskon kode promo
+        if (!empty($promo_code)) {
+            switch ($promo_code) {
+                case 'DISC25':
+                    $promo_discount = 0.25;
+                    break;
+                case 'DISC50':
+                    $promo_discount = 0.50;
+                    break;
+                case 'DISC75':
+                    $promo_discount = 0.75;
+                    break;
+                case 'DISC90':
+                    $promo_discount = 0.90;
+                    break;
+                default:
+                    $promo_discount = 0;
+                    break;
+            }
+            $promo_amount = $total_harga * $promo_discount;
+            $total_diskon += $promo_amount;
+        } else {
+            $promo_amount = 0;
+        }
+
     ?>
         <div class="invoice">
             <div class="invoice-header">
@@ -117,13 +153,9 @@
                         <th>Total</th>
                     </tr>
                     <?php
+                    // Reset result pointer and re-fetch data
+                    $result->data_seek(0);
                     while ($row = $result->fetch_assoc()) {
-                        $discount = $row['discount'];
-                        $discount_amount = $row['item_price'] * $row['quantity'] * $discount;
-                        $total_price = ($row['item_price'] * $row['quantity']) - $discount_amount;
-
-                        $total_diskon += $discount_amount;
-                        $total_harga += $row['item_price'] * $row['quantity'];
                     ?>
                         <tr>
                             <td><?= $row['item_name']; ?></td>
@@ -137,8 +169,9 @@
                 </table>
             </div>
             <div class="order-summary">
-                <?php if (isset($_SESSION['discount'])) { ?>
-                    <p>Diskon: <?= ($_SESSION['discount'] * 100) ?>%</p>
+                <?php if (!empty($promo_code)) { ?>
+                    <p>Kode Promo: <?= htmlspecialchars($promo_code); ?></p>
+                    <p>Diskon Promo: <?= formatRupiah($promo_amount); ?></p>
                 <?php } ?>
                 <p>Total Harga: <?= formatRupiah($total_harga - $total_diskon); ?></p>
                 <p>Tanggal Pesanan: <?= date("d-m-Y H:i:s", strtotime($order_date)) ?></p>

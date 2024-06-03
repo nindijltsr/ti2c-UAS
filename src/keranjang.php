@@ -29,24 +29,25 @@ if ($promoCode === 'DISC25') {
 if (isset($_POST['place_order'])) {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $order_id = uniqid();
-        $stmt = $conn->prepare("INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, discount, order_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+        $stmt = $conn->prepare("INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, discount, promo_code, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
 
         $discount_rate = $_SESSION['discount'] ?? 0; // Ambil diskon dari session
+        $promo_code = $_POST['promo_code'] ?? null; // Ambil kode promo dari POST data
 
         foreach ($_SESSION['cart'] as $item) {
             $item_price_with_discount = $item['price'] * (1 - $discount_rate);
-            $stmt->bind_param("sisddi", $order_id, $user_id, $item['name'], $item_price_with_discount, $item['quantity'], $discount_rate);
+            $stmt->bind_param("sisdids", $order_id, $user_id, $item['name'], $item_price_with_discount, $item['quantity'], $discount_rate, $promo_code);
             $stmt->execute();
         }
 
         $stmt->close();
         unset($_SESSION['cart']);
-        $_SESSION['discount'] = $discount_rate; // Set the discount rate here
+        unset($_SESSION['discount']); // Bersihkan diskon setelah pesanan disimpan
+        unset($_SESSION['promo_code']); // Bersihkan kode promo setelah pesanan disimpan
         echo "<script>alert('Order placed successfully');
         window.location = 'invoice.php';</script>";
     }
 }
-
 
 
 // Tambahkan item ke keranjang
@@ -107,13 +108,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'apply_promo') {
     if ($result->num_rows > 0) {
         $promo_row = $result->fetch_assoc();
         $_SESSION['discount'] = $promo_row['discount_rate'];
+        $_SESSION['promo_code'] = $promo_code; // Tambahkan baris ini untuk menyimpan kode promo
     } else {
         $_SESSION['discount'] = 0;
+        unset($_SESSION['promo_code']); // Tambahkan baris ini untuk menghapus kode promo jika tidak valid
     }
     $stmt->close();
     header('Location: keranjang.php');
     exit;
 }
+
 
 function formatRupiah($number)
 {
@@ -314,7 +318,9 @@ function formatRupiah($number)
                     <button type="submit" name="place_order" id="place-order" class="btn btn-danger">Pesan Sekarang</button>
                     <a href="keranjang.php?action=clear" id="cancel-order" class="btn btn-danger">Batal</a>
                 </div>
+                <input type="hidden" name="promo_code" id="hidden-promo-code">
             </form>
+
         </div>
     </div>
 
@@ -322,29 +328,36 @@ function formatRupiah($number)
         document.addEventListener('DOMContentLoaded', function() {
             var inputPromo = document.querySelector('input[name="promo_code"]');
             var applyPromoButton = document.querySelector('#apply-promo');
+            var hiddenPromoCodeInput = document.querySelector('#hidden-promo-code');
+            var placeOrderButton = document.querySelector('#place-order');
 
             applyPromoButton.addEventListener('click', function() {
                 var promoCode = inputPromo.value.trim();
 
                 if (promoCode === 'DISC25') {
-                    applyPromo(0.25);
+                    applyPromo(0.25, promoCode);
                 } else if (promoCode === 'DISC50') {
-                    applyPromo(0.5);
+                    applyPromo(0.5, promoCode);
                 } else if (promoCode === 'DISC75') {
-                    applyPromo(0.75);
+                    applyPromo(0.75, promoCode);
                 } else if (promoCode === 'DISC90') {
-                    applyPromo(0.9);
+                    applyPromo(0.9, promoCode);
                 } else {
                     alert('Kode promo tidak valid!');
                 }
             });
 
-            function applyPromo(discountRate) {
+            placeOrderButton.addEventListener('click', function() {
+                hiddenPromoCodeInput.value = inputPromo.value.trim();
+            });
+
+            function applyPromo(discountRate, promoCode) {
                 var totalPriceElement = document.querySelector('.total-amount');
                 var totalPrice = parseFloat(totalPriceElement.dataset.totalPrice);
                 var discount = totalPrice * discountRate;
                 var discountedPrice = totalPrice - discount;
                 totalPriceElement.textContent = 'Total: ' + formatRupiah(discountedPrice);
+                hiddenPromoCodeInput.value = promoCode; // Set promo code in hidden input
             }
 
             function formatRupiah(number) {
@@ -354,5 +367,6 @@ function formatRupiah($number)
     </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-    <?php include '../assets-templates/footer.php'; ?>
+<?php include '../assets-templates/footer.php'; ?>
+
 </html>
