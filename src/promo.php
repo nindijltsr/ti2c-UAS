@@ -139,15 +139,6 @@
             <a href="#" class="btn" onclick="showPromoCode('DISC90')">Kode Promo</a>
             <div class="promo-code" id="promo-disc90">Kode Promo: DISC90</div>
         </div>
-        <!-- <div class="container" data-promo="Buy 1 Get 1">
-            <a href="#" class="btn" onclick="showPromoCode('KTG11')">Kode Promo</a>
-            <div class="promo-code" id="promo-ktg11">Kode Promo: KTG11</div>
-        </div>
-        <div class="container" data-promo="Buy 1 Get 1">
-            <a href="#" class="btn" onclick="showPromoCode('AMRC11')">Kode Promo</a>
-            <div class="promo-code" id="promo-amrc11">Kode Promo: AMRC11</div>
-        </div>
-        <div class="container-wrapper"> -->
     </div>
     </div>
 
