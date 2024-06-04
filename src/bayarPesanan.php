@@ -15,14 +15,18 @@ if (isset($_GET['order_id'])) {
 
     // Perbarui status pesanan menjadi 'lunas' di database
     $sql_update_status = "UPDATE orders SET status = 'lunas' WHERE order_id = '$order_id'";
+    // Tampilkan alert jika pembayaran selesai dilakukan
     if ($conn->query($sql_update_status) === TRUE) {
-        // Redirect kembali ke halaman riwayatPesanan.php setelah berhasil memperbarui status
-        header("Location: riwayatPesanan.php");
-        exit();
+        echo "<script>
+                alert('Pembayaran selesai dilakukan.');
+                window.location.href = 'riwayatPesanan.php';
+            </script>";
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "<script>
+                alert('Gagal melakukan pembayaran.');
+                window.location.href = 'riwayatPesanan.php';
+            </script>";
     }
 } else {
     echo "Order ID tidak ditemukan.";
 }
-?>

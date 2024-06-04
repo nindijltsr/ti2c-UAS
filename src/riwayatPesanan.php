@@ -24,17 +24,18 @@ if (isset($_GET['status']) && isset($_GET['order_id'])) {
 
 //Get pesanan dari tabel orders
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT order_id, item_name, item_price, quantity, order_date, status 
+$sql = "SELECT order_id, item_name, item_price, quantity, order_date, status
         FROM orders 
         WHERE user_id = '$user_id' 
         ORDER BY order_id DESC, order_date DESC";
 $result = $conn->query($sql);
 
-function formatRupiah($number) {
+
+function formatRupiah($number)
+{
     return 'Rp ' . number_format($number, 2, ',', '.');
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -131,17 +132,17 @@ function formatRupiah($number) {
                     <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Tanggal Pesanan</th>
-                    <th>Status</th> 
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if ($result->num_rows > 0) : ?>
-                    <?php
+                <?php
+                if ($result->num_rows > 0) :
                     $current_order_id = null;
                     while ($row = $result->fetch_assoc()) :
                         if ($row['order_id'] !== $current_order_id) :
                             $current_order_id = $row['order_id'];
-                    ?>
+                ?>
                             <tr>
                                 <td><?= $row['order_id']; ?></td>
                                 <td><?= $row['item_name']; ?></td>
@@ -150,22 +151,17 @@ function formatRupiah($number) {
                                 <td><?= $row['order_date']; ?></td>
                                 <td>
                                     <?php
-                                    //Get status pesanan
-                                    $order_id = $row['order_id'];
-                                    $sql_status = "SELECT status FROM orders WHERE order_id = '$order_id'";
-                                    $result_status = $conn->query($sql_status);
-                                    $status = $result_status->fetch_assoc()['status'];
-
-                                    // tampilkan status
-                                    if ($status == 'pending') {
-                                        echo 'Pending';
-                                    } elseif ($status == 'lunas') {
-                                        echo 'Lunas';
+                                    if ($row['status'] == 'pending') {
+                                        echo '<a href="bayarPesanan.php?order_id=' . $row['order_id'] . '">Bayar</a>';
+                                    } elseif ($row['status'] == 'lunas') {
+                                        echo 'Selesai';
                                     } else {
                                         echo 'Unknown';
                                     }
+                                    
                                     ?>
                                 </td>
+
                             </tr>
                         <?php else : ?>
                             <tr>
@@ -174,24 +170,7 @@ function formatRupiah($number) {
                                 <td><?= formatRupiah($row['item_price']); ?></td>
                                 <td><?= $row['quantity']; ?></td>
                                 <td><?= $row['order_date']; ?></td>
-                                <td>
-                                    <?php
-                                    //Get status pesanan
-                                    $order_id = $row['order_id'];
-                                    $sql_status = "SELECT status FROM orders WHERE order_id = '$order_id'";
-                                    $result_status = $conn->query($sql_status);
-                                    $status = $result_status->fetch_assoc()['status'];
-
-                                    // tampilkan status pesanan
-                                    if ($status == 'pending') {
-                                        echo 'Pending';
-                                    } elseif ($status == 'lunas') {
-                                        echo 'Lunas';
-                                    } else {
-                                        echo 'Unknown';
-                                    }
-                                    ?>
-                                </td>
+                                <td></td>
                             </tr>
                         <?php endif; ?>
                     <?php endwhile; ?>
@@ -205,6 +184,25 @@ function formatRupiah($number) {
     </div>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <?php include '../assets-templates/footer.php'; ?>
+
+    <script>
+    function bayar(order_id) {
+        // Kirim permintaan asinkron ke bayar.php dengan menggunakan AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Perbarui status pembayaran di baris yang sesuai dengan order_id
+                var statusCell = document.getElementById('status_' + order_id);
+                if (statusCell) {
+                    statusCell.innerHTML = xhr.responseText;
+                }
+            }
+        };
+        xhr.open("GET", "bayar.php?order_id=" + order_id, true);
+        xhr.send();
+    }
+</script>
+
 </body>
 
 </html>

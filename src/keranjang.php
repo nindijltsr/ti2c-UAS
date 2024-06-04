@@ -11,39 +11,58 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $promoCode = $_POST['promo_code'] ?? null;
+if ($promoCode) {
+    $_SESSION['promo_code'] = $promoCode;
+}
+
 $discount_rate = 0;
 
 // Tentukan diskon berdasarkan kode promo
-if ($promoCode === 'DISC25') {
-    $discount_rate = 0.25;
-} elseif ($promoCode === 'DISC50') {
-    $discount_rate = 0.50;
-} elseif ($promoCode === 'DISC75') {
-    $discount_rate = 0.75;
-} elseif ($promoCode === 'DISC90') {
-    $discount_rate = 0.90;
+if (isset($_SESSION['promo_code'])) {
+    $promoCode = $_SESSION['promo_code'];
+    if ($promoCode === 'DISC25') {
+        $_SESSION['discount'] = 0.25;
+    } elseif ($promoCode === 'DISC50') {
+        $_SESSION['discount'] = 0.50;
+    } elseif ($promoCode === 'DISC75') {
+        $_SESSION['discount'] = 0.75;
+    } elseif ($promoCode === 'DISC90') {
+        $_SESSION['discount'] = 0.90;
+    } else {
+        $_SESSION['discount'] = 0;
+    }
 }
+
 
 
 // Simpan pesanan ke database
 if (isset($_POST['place_order'])) {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $order_id = uniqid();
-        $stmt = $conn->prepare("INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, discount, order_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+        $stmt = $conn->prepare("INSERT INTO orders (order_id, user_id, item_name, item_price, quantity, discount, promo_code, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+
 
         $discount_rate = $_SESSION['discount'] ?? 0; // Ambil diskon dari session
 
         foreach ($_SESSION['cart'] as $item) {
+            $item_price_original = $item['price'];
             $item_price_with_discount = $item['price'] * (1 - $discount_rate);
-            $stmt->bind_param("sisddi", $order_id, $user_id, $item['name'], $item_price_with_discount, $item['quantity'], $discount_rate);
+            $promo_code = $_SESSION['promo_code'] ?? '';
+            $stmt->bind_param("sisddss", $order_id, $user_id, $item['name'], $item_price_original, $item['quantity'], $discount_rate, $promo_code);
+
             $stmt->execute();
         }
 
         $stmt->close();
         unset($_SESSION['cart']);
+
         $_SESSION['discount'] = $discount_rate; // Set the discount rate here
         echo "<script>alert('Order placed successfully');
         window.location = 'invoice.php';</script>";
+        unset($_SESSION['discount']); // Bersihkan diskon setelah pesanan disimpan
+        unset($_SESSION['promo_code']); // Bersihkan kode promo setelah pesanan disimpan
+        header("Location: invoice.php");
+        exit();
     }
 }
 
@@ -278,11 +297,13 @@ function formatRupiah($number)
                 <span>Total</span>
             </div>
             <?php
-            $totalPrice = 0;
+            $totalPrice = 0; // Initialize total price outside the conditional block
 
-            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
-                <?php $totalPrice = 0; ?>
-                <?php foreach ($_SESSION['cart'] as $item) : ?>
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) :
+                $discount_rate = $_SESSION['discount'] ?? 0;
+
+                foreach ($_SESSION['cart'] as $item) :
+            ?>
                     <div class="item">
                         <span><?= $item['name']; ?></span>
                         <span>
@@ -291,9 +312,15 @@ function formatRupiah($number)
                             <a href="keranjang.php?action=add&name=<?= urlencode($item['name']); ?>&price=<?= $item['price']; ?>">+</a>
                         </span>
                         <span><?= formatRupiah($item['price'] * $item['quantity']); ?></span>
-                        <?php $totalPrice += $item['price'] * $item['quantity']; ?>
+
+                        <?php
+                        $item_price_with_discount = $item['price'] * (1 - $discount_rate);
+
+                        $totalPrice += $item_price_with_discount * $item['quantity'];
+                        ?>
                     </div>
                 <?php endforeach; ?>
+
                 <div class="summary">
                     <div class="total">
                         <span>Total</span>
@@ -303,6 +330,7 @@ function formatRupiah($number)
             <?php else : ?>
                 <p>Keranjang kosong</p>
             <?php endif; ?>
+
         </div>
         <div class="order-action">
             <input type="text" name="promo_code" placeholder="Masukkan Kupon/Kode Promo">
@@ -320,20 +348,20 @@ function formatRupiah($number)
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var inputPromo = document.querySelector('input[name="promo_code"]');
             var applyPromoButton = document.querySelector('#apply-promo');
-
             applyPromoButton.addEventListener('click', function() {
-                var promoCode = inputPromo.value.trim();
-
-                if (promoCode === 'DISC25') {
-                    applyPromo(0.25);
-                } else if (promoCode === 'DISC50') {
-                    applyPromo(0.5);
-                } else if (promoCode === 'DISC75') {
-                    applyPromo(0.75);
-                } else if (promoCode === 'DISC90') {
-                    applyPromo(0.9);
+                var promoCode = document.querySelector('input[name="promo_code"]').value.trim();
+                if (promoCode) {
+                    var form = document.createElement('form');
+                    form.method = 'post';
+                    form.action = 'keranjang.php';
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'promo_code';
+                    input.value = promoCode;
+                    form.appendChild(input);
+                    document.body.appendChild(form);
+                    form.submit();
                 } else {
                     alert('Kode promo tidak valid!');
                 }
@@ -354,5 +382,6 @@ function formatRupiah($number)
     </script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-    <?php include '../assets-templates/footer.php'; ?>
+<?php include '../assets-templates/footer.php'; ?>
+
 </html>

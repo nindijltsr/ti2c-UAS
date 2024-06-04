@@ -176,11 +176,8 @@ function formatRupiah($number)
             background-color: #EAD196;
             text-align: center;
             display: inline-block;
-            /* Menyesuaikan ukuran background dengan isi */
             padding: 10px 15px;
-            /* Menambah ruang di sekitar teks */
             border-radius: 15px;
-            /* Membuat border melengkung */
         }
 
         p {

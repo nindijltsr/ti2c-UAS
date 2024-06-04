@@ -50,7 +50,7 @@
       <div class="carousel-item active">
         <img src="../assets-templates/img/Slide1.png" class="d-block w-100" alt="...">
         <div class="carousel-caption d-blok">
-          <a href="">
+          <a href="keranjang.php">
             <button type="button" class="btn btn-danger">Pesan Sekarang</button>
           </a>
         </div>
